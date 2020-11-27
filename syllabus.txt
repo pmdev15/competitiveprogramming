@@ -1,0 +1,204 @@
+Big O Notation
+Ad hoc problems
+Permutation generation
+Subset generation
+Maths
+[Bit-Manipulation][1]
+[Hash-Tables][2]
+Greedy
+Data structures(Excluding graph)
+
+    Arrays
+    Strings
+    Vectors
+    Stack
+    Queue
+    Heap
+    List
+    Deque   
+    Map
+    Set
+    Priority_Queues
+    Pair
+    Linked List
+    Graphs
+
+Divide and conquer
+
+    Binary search(In an array/On answer)
+    Merge sort
+    Segment tree
+    Merge sort tree
+    Centroid decomposition
+
+Algorithms
+
+    First of all you should know ad hoc problems, implementation.
+    Algorithm Analysis - The Big O notation, Complexity Classes
+    Recursion,Backtracking,pruning
+    Binary Search
+    Sorting Algorithms -
+
+    O(n^2) - Bubble Sort, Insertion Sort, Selection Sort
+    O(n log n) - Quick Sort, Heap Sort, Merge Sort
+
+    Brute force
+    Greedy
+    Prefix sums and Sliding Window Algorithms
+
+Dynamic Programming
+
+    Introduction(Possibly using the classic fibonacci example)
+    Edit Distance
+    Knapsack Problem
+    Matrix Chain multiplication
+    LCS(longest common subsequence)
+    LIS(longest increasing subsequence)
+    Edit Distance
+    Subset-sum problem
+    0–1 Knapsack
+    Best path in a matrix
+    Fibonacci numbers
+    prefix sums
+    DP optimizations
+
+Graphs
+
+    BFS
+    DFS
+    Flood Fill
+    MST
+    Representation
+    Traveresing - DFS,BFS
+    Shortest-path algorithms (Dijkstra, Bellman-Ford, Floyd-Warshall)
+    Topological Sort, Longest path in a DAG
+    MST (Prim and kruskal)
+    Heavy-Light Decomposition
+    SCC and Euler Tour.
+    finding connected components
+    trees
+    FW
+    SCC
+    bridges
+    matching
+    flows
+
+Flow Algorithms
+
+    Maximum Flow
+    Min-Cost Max-Flow
+    Maximum Bipartite Matching 
+    Hungarian Algorithm
+
+Maths
+    Number Theory: 
+        Euclid’s GCD Algorithm
+        GCD
+        LCM
+        Extended Euclidean
+        Euler totient function
+        sieve of Eratosthenes
+        Probabilistic Primality Checks
+    Geometry
+        distance between two points
+        cross product
+        convex hull
+    Combinatorics
+        Nim Game
+        Grundy Numbers
+    probability
+    Set
+        Find & Union
+        Union Find/Disjoint
+
+String algos
+    String Algorithms: 
+        KMP string searching
+        Boyre Moore
+        Z-Function
+        Aho-Corasik
+    String Data-structure:
+        Suffix Arrays
+        Tries
+
+Trees
+    Segment trees (with lazy propagation)
+    Binary Indexed Trees
+    Treaps
+    Skip Lists
+    Interval Tree
+    Binary Indexed Tree
+    Suffix Tree
+    bottom-up dp
+    LCA
+    Centroid decomposition
+    HLD
+    DSU
+
+Data structures
+    sqrt decomposition
+    Fenwick/BIT
+    persistent structures
+    Policy-Based-DS
+    treaps
+    BST
+
+Seive of Erathosthenes
+Segmented Seive
+Minimum Spanning Tree
+Bitmasking
+Standard template library of c++
+Bipartite Graphs
+Multi-Dimensional DP
+Ternary Search
+The breadth and depth-first search
+
+Must know :-
+    Hash functions 
+    Meet in the middle
+    Fast Modulo Multiplication (Exponential Squaring)
+    Heuristic Algorithms
+    Manacher’s Algorithm
+    Prime Miller Rabin
+    Matrix Recurrence + Fast Modulo Multiplication for counting
+    Stable Marriage Problem
+    Extended Euclid’s algorithm 
+    Fast Fourier Transform for fast polynomial multiplication
+    Prim’s Algorithm, Kruskal’s Algorithm
+    RMQ, LCA
+    assignment problem
+    Bipartite matching algorithms
+    Heavy-light decomposition
+    Sweep line algorithm
+    Z algorithm
+    LCP
+    Gaussian Elimination
+    Numerical Integration/Differentiation
+    Line Clipping
+    Advanced Maths Ad-Hoc problems
+    Aho–Corasick string matching algorithm;
+    Calculate nCr % M Lucas’s Theorem
+    Inverse Modulo operations
+    Pollard Rho Integer Factorization
+    Catalan Numbers
+    Fast Fourier Transformation for fast polynomial multiplication
+    Prim’s Algorithm, Kruskal’s Algorithm
+    Numerical Integration/Differentiation
+    Line Clipping
+    Aho–Corasick string matching algorithm
+    Knuth–Morris–Pratt algorithm
+
+-------------------------
+
+    Bitmasks
+    Two pointers, sliding window
+    Interactive problems
+    Hashing
+    Matrix exponentiation
+    Randomized algorithms
+    2-SAT
+    Constructive algorithms
+    Expression parsing
+    FFT
+    Chinese remainder theorem
+    Difference array, binary lifting
