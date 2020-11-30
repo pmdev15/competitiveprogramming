@@ -17,7 +17,7 @@ int main()
         {
             for (int j = 1; j <= n; j++)
             {
-                if (((i / (i + 1)) * ((j + 1) / j)) == (n / (n + 1)))
+                if (((i / (i + 1)) * ((j + 1) / j)) == (i / (i + 1)))
                 {
                     cout << i << j << endl;
                     ans++;
