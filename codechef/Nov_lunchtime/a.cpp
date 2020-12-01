@@ -1,18 +1,27 @@
 #include <bits/stdc++.h>
 using namespace std;
-
+void inputarr(int arr[], int n)
+{
+    for (int abcd = 0; abcd < n; abcd++)
+    {
+        scanf("%d", &arr[abcd]);
+    }
+}
 void solve()
 {
     int n;
     cin >> n;
-    int sum = 0;
-    for (int i = 0; i < n; i++)
+    int ans = 0, y = 0,x;
+    while (n--)
     {
-        int a;
-        cin >> a;
-        sum +=a;
+        cin >> x;
+        if (y >= 0)
+        {
+            y += (x - 1);
+            ans += x;
+        }
     }
-    cout << sum << endl;
+    cout<<ans<<endl;
 }
 int main()
 {
