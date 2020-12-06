@@ -2,7 +2,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#define forp(a) for (int i = 0; i < a; i++)
+#define forp(i,a,b) for (int i = a; i < b; i++)
 #define form(a, b) for (int i = a; i >= b; i--)
 #define REP(i, n) forp(i, 0, n)
 #define ld long double
@@ -32,10 +32,26 @@ const ld EPS = 10e-9;
 
 void solve()
 {
+	int n,k;
+	cin>>n>>k;
+	forp(i,1,n+1){
+		if(i<=k){
+			cout<<i<<" ";
+		}
+		else
+		{
+			cout<<--i<<" ";
+		}
+	}
+	cout<<endl;
 }
 
-int main(int argc, char const *argv[])
+int32_t main(int32_t argc, char const *argv[])
 {
-
+	int t=1;
+	cin>>t;
+	while(t--){
+	solve();
+	}
 	return 0;
 }
