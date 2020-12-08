@@ -1,30 +1,32 @@
-#include <iostream>
+#include <bits/stdc++.h>
 using namespace std;
 
-int main()
+void solve()
 {
-    int n,k,t=0;
-    cin>>n>>k;
+    int n, k;
+    cin >> n >> k;
+    int arr[n];
     for (int i = 0; i < n; i++)
     {
-        int p;
-        cin>>p;
-        if (p>k || p==1)
-        {
-            t++;
-        }else if (p<k)
-        if (p=k)
-        {
-            cout<<p+1<<endl;
-            return 0;
-        }else
-        {
-            cout<<p<<endl;
-            return 0;
-        }
-               
+        cin >> arr[i];
     }
-    cout<<t<<endl;
-    
-return 0;
+    int min = arr[k-1];
+    int ans = 0;
+    for (int j = 0; j < n; j++)
+    {
+        if (arr[j] >= min && arr[j]>0)
+        {
+            ans++;
+        }
+    }
+    cout<<ans<<endl;
+}
+int main()
+{
+    int t = 1;
+    // cin >> t;
+    while (t--)
+    {
+        solve();
+    }
 }

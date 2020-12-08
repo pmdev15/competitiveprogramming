@@ -5,25 +5,15 @@ void solve()
 {
     int a, b;
     cin >> a >> b;
-    int ans = 0;
-    for (int i = 1; i <= a; i+=2)
-    {
-        for (int j = 1; j <= b; j+=2)
-        {
-            if ((i + j) % 2 == 0)
-            {
-                ans++;
-            }
-        }
-    } 
-
-    cout << ans << endl;
-}
-void compute(){
-	int a,b;
-	cin>>a>>b;
-	cout<<a<<b;
-
+    int aodd, aeven, bodd, beven;
+    if (a % 2 == 0 ? aodd = a / 2 : aodd = (a + 1) / 2);
+    aeven = a / 2;
+    if (b % 2 == 0 ? bodd = b / 2 : bodd = (b + 1) / 2);
+    beven = b / 2;
+    int eveneven = aeven * beven;
+    int oddodd = aodd * bodd;
+    int totaleven = eveneven + oddodd;
+    cout << totaleven << endl;
 }
 int main()
 {

@@ -5,6 +5,7 @@ void solve()
 {
     int n, k;
     cin >> n >> k;
+    int count=0;
     for (int i = 1; i <= n; i++)
     {
         int ans = i;
@@ -14,17 +15,13 @@ void solve()
         }
         else
         {
-            cout << --ans << " ";
+            cout << -ans << " ";
         }
     }
     cout << endl;
 }
 int main()
 {
-#ifndef ONLINE_JUGDE
-    freopen("input.txt", "r", stdin);
-    freopen("output.txt", "w", stdout);
-#endif
     int t = 1;
     cin >> t;
     while (t--)
