@@ -1,25 +1,37 @@
 #include <bits/stdc++.h>
 using namespace std;
-
+#define int long long int
 void solve()
 {
-    int n, d;
-    cin >> n >> d;
-    int arr[n];
+    int n, k;
+    cin >> n >> k;
+    int inp, risk = 0, nrisk = 0;
     for (int i = 0; i < n; i++)
     {
-        cin >> arr[i];
+        cin >> inp;
+        if (inp <= 9 || inp >= 80)
+        {
+            risk++;
+        }
     }
-    if (n % 2 == 0 && d != 0)
+    nrisk = n - risk;
+    int ans = 0;
+    while (k > 0 && risk > 0)
     {
-        cout << (n / d) << endl;
+        risk -= k;
+        ans++;
     }
-    else if (d != 0 && n % 2 != 0)
+    while (k > 0 && nrisk > 0)
     {
-        cout << ((n + 1) / d) << endl;
+        nrisk -= k;
+        ans++;
+    }
+    if (k != 0)
+    {
+        cout << ans << endl;
     }
 }
-int main()
+int32_t main()
 {
     int t = 1;
     cin >> t;

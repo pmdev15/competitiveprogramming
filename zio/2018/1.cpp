@@ -10,7 +10,7 @@ using namespace std;
 vi v;
 void solve()
 {
-    int n, k;
+    int n, k,ans=0;
     cin >> n >> k;
     for (int i = 0; i < n; i++)
     {
