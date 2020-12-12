@@ -40,7 +40,7 @@ void solve()
 		}
 		else
 		{
-			cout<<--i<<" ";
+			cout<<-i<<" ";
 		}
 	}
 	cout<<endl;
