@@ -3,15 +3,18 @@ using namespace std;
 
 void solve()
 {
-    int x, y, n;
-    cin >> x >> y >> n;
+    long long int n;
+    cin >> n;
     int ans = 0;
-    for (int i = 0; i <= n; i++)
+    int i = 0;
+    while (n > 0)
     {
-        if ((x ^ i) < (i ^ y))
+        if (n % 2 != 0)
         {
             ans++;
         }
+        n = n / 2;
+        i++;
     }
     cout << ans << endl;
 }
@@ -23,4 +26,5 @@ int main()
     {
         solve();
     }
+    return 0;
 }

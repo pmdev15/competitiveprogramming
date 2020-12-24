@@ -5,7 +5,7 @@ using namespace std;
 vector<int> vi;
 void solve()
 {
-    int n, m;
+    long long int n, m;
     cin >> n >> m;
     for (int i = 0; i < (n + m); i++)
     {
@@ -26,7 +26,6 @@ void solve()
 int main()
 {
     int t = 1;
-    // cin >> t;
     while (t--)
     {
         solve();
