@@ -3,14 +3,16 @@ using namespace std;
 
 void solve()
 {
-    long long int n;
-    scanf("%lld", &n);
-    long long int arr[n + 1];
+    int n;
+    scanf("%d", &n);
+    int k;
+    scanf("%d", &k);
+    int arr[n + 1];
     for (int i = 1; i <= n; i++)
     {
-        scanf("%lld", &arr[i]);
+        scanf("%d", &arr[i]);
     }
-    long long int ans = 0;
+    int ans = 0;
     int i = 0;
     int j = 0;
     for (i = 1; i <= n; i++)
@@ -18,7 +20,7 @@ void solve()
         int first = 0, last = 0;
         for (j = 1; j <= n; j++)
         {
-            if (arr[j] == i)
+            if (arr[j] == k)
             {
                 first = j;
                 last = j;
@@ -27,7 +29,7 @@ void solve()
         }
         for (j = first; j <= n; j++)
         {
-            if (arr[j] == i)
+            if (arr[j] == k)
             {
                 last = j;
             }
@@ -35,7 +37,7 @@ void solve()
         int sum = abs(last - first);
         ans += sum;
     }
-    printf("%lld", &ans);
+    printf("%d", ans);
 }
 int main()
 {
