@@ -7,10 +7,30 @@ int main(int argc, char const *argv[])
     cin >> n;
     while (n > 0)
     {
-        if (n % 5 == 0 || n % 10 == 0 || 125 % 20 == 0)
+        if (n >= 100)
         {
             m++;
-            n = n/5;
+            n -= 100;
+        }
+        else if (n >= 20)
+        {
+            m++;
+            n -= 20;
+        }
+        else if (n >= 10)
+        {
+            m++;
+            n -= 10;
+        }
+        else if (n >= 5)
+        {
+            m++;
+            n -= 5;
+        }
+        else
+        {
+            m++;
+            n--;
         }
     }
 
