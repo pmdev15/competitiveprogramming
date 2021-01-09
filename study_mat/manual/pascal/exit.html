@@ -1,0 +1,101 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+ <title>Exit Procedures</title>
+ <link rel="stylesheet" href="../styles.css" />
+ <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+
+<body>
+<h1>3.4. Exit Procedures</h1>
+
+<hr />
+<h2><a id="what">What are exit procedures?</a></h2>
+
+
+<p>
+When a program crashes because of a run time error (such as dividing by
+zero), you do not normally get a chance to respond to the error in any way.
+An exit procedure allows you to "clean up" in the event of an error,
+although you cannot easily resume the program.
+</p>
+
+<p>
+One possible use for an exit procedure is to close an output file: if a file
+is not closed, then data can be lost. A graphics program might want to
+change back to text mode if it crashes, so that the user isn't left with a
+messed up screen. The most common use that I've found in olympiad problems
+is in optimisation problems where partial marks can be obtained for a
+non-optimal solution: keep track of the best solution found so far, and if
+the program crashes then quickly output this solution. This could also be
+done by just writing solutions as they are found, overwriting previous
+solutions, but this has two disadvantages:
+</p>
+<ul>
+<li>Writing many solutions to file many times is much slower than writing 
+the best solution to file once.</li>
+<li>Some olympiads (including the International Olympiad in Informatics)
+will not evaluate a test run that crashed (returned a non-zero exit code). An
+exit procedure allows you to pretend that nothing went wrong.</li>
+</ul>
+
+<hr />
+<h2><a id="implementation">Implementation</a></h2>
+
+
+<p>
+The variable <code>exitproc</code> contains a pointer to the default exit
+procedure. You must set it to point to your own exit procedure. However, you
+must save the original pointer and restore it inside your exit procedure to
+allow the normal shutdown procedure to take place.
+</p>
+
+<pre>
+var
+   oldexitproc : pointer;          {the default exit procedure}
+   
+procedure myexitproc;
+begin
+     exitproc := oldexitproc;
+     writeln('myexitproc reached with exitcode ', exitcode);
+     exitcode := 0;
+end;
+
+begin
+     oldexitproc := exitproc;
+     exitproc := @myexitproc;
+     { do stuff }
+end.
+</pre>
+
+<p>
+The error is suppressed by setting <code>exitcode</code> to
+<code>0</code>.
+If you test this in a program that crashes, you may notice that Free
+Pascal still produces the usual error log that indicates an error
+(although the operating system still thinks the program worked). If you
+want to suppress this as well, then set the variable
+<code>erroraddr</code> to <code>nil</code>.
+</p>
+
+<p>
+The exit procedure is run whether your program crashes or terminates
+normally, so it is a great place to put the code for writing your output
+file to ensure that it definitely gets written.
+</p>
+
+<hr />
+
+<div>
+<a href="dynamic.html">[Prev]</a>
+<a href="timer.html">[Next]</a>
+<a href="../index.html">[Up]</a>
+</div>
+<hr />
+<p>
+Last updated Sun Nov 28 22:04:38.0000000000 2004.
+Copyright Bruce Merry (bmerry '@' gmail dot. com).
+</p>
+</body>
+</html>

@@ -1,0 +1,78 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+ <title>Test data</title>
+ <link rel="stylesheet" href="../styles.css" />
+ <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+
+<body>
+<h1>5.2. Test data</h1>
+
+<p>
+Creating quality test data for a question is a problem that is often
+underestimated. The test data should be designed in such a way that it
+tests both the efficiency and the correctness of the algorithm used, in
+such a way that semi-efficient or mostly correct algorithms will get a
+reasonable part score.
+</p>
+
+<p>It is common to order the test cases from the most easy to the most
+difficult, but it is not always straightforward to decide what is
+<q>easy</q> so
+this isn't a fixed rule. However, generally the first test case should be
+no harder than the sample case, and should be solvable even by a
+moronicly slow but correct algorithm. Later cases should get
+progressively larger or more difficult until the last few test cases
+can only be solved by one of a few algorithms that are reasonably well
+implemented (you shouldn't require people to spend hours tweaking their
+algorithms to make them perfectly efficient, however). If there is only
+one variable controlling size, then it will usually grow exponentially
+over the test cases.
+</p>
+
+<p>The easiest way to generate large data sets is to randomly generate
+test data. This is not always a good idea, since many algorithms
+perform much better on random data than on extreme cases, and so will
+get more points than they deserve (perhaps even a full score). You
+should create a mix of random and hand-designed test cases.
+Hand-designed could mean writing a program to produce a specific test
+case. In some cases it is worth adding slight perturbations to the
+pathological cases, so that they cannot immediately be detected as such
+(e.g. if there is one test case that is obviously the worst possible
+case, do not use it as a clever contestant may modify his program to
+detect it and hard-code the correct answer).</p>
+
+<p>Apart from hand-crafted pathological test cases, try to
+differentiate random cases in some way. For example, in a graph
+theory problem, put in dense graphs and sparse graphs, connected graphs
+and graphs with many components, and so on.</p>
+
+<p>At some point before a problem is used in a contest, it is vital to
+validate the test data, as it is surprisingly easy to accidentally
+violate the constraints of the problem statement or even fail to follow
+the input format. The USACO even goes as far as to have an update field
+for a validator (written in Perl) to be uploaded, and a problem is not
+considered ready for use until the test data is validated. The SACO
+does not yet have such a system, but a simple way to pick up most
+errors is to use <code>assert</code> within your model solution to
+check all the constraints. If your model solution gets a full score,
+you can be reasonably certain that your test data is valid, although it
+will not pick up more subtle errors such as trailing garbage or
+inappropriate whitespace.</p>
+
+<hr />
+
+<div>
+<a href="question.html">[Prev]</a>
+<a href="evaluation.html">[Next]</a>
+<a href="../index.html">[Up]</a>
+</div>
+<hr />
+<p>
+Last updated Mon Jun 19 18:09:59.0000000000 2006.
+Copyright Bruce Merry (bmerry '@' gmail dot. com).
+</p>
+</body>
+</html>

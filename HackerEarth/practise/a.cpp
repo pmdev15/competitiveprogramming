@@ -5,30 +5,30 @@ using namespace std;
 #define mod 1000000007
 void solve()
 {
-    int l, w, h, n;
-    cin >> l >> n;
-    for (int i = 0; i < n; i++)
+    ll n, q, l, r;
+    cin >> n >> q;
+    ll arr[n];
+    for (ll i = 0; i < n; i++)
     {
-        cin >> w >> h;
-        if (w < l || h < l)
+        cin >> arr[i];
+    }
+    ll sum = 0;
+    for (ll j = 0; j < q; j++)
+    {
+        cin >> l >> r;
+        for (ll k = l - 1; k < r; k++)
         {
-            cout << "UPLOAD ANOTHER" << endl;
+            sum += arr[k];
         }
-        else
-        {
-            if (w == h)
-            {
-                cout << "ACCEPTED" << endl;
-            }
-            else
-            {
-                cout << "CROP IT" << endl;
-            }
-        }
+        cout<<floor(sum/abs((l-1)-r))<<"\n";
+        sum=0;
     }
 }
 int main()
 {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
     int t = 1;
     // cin >> t;
     while (t--)

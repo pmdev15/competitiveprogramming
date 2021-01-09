@@ -1,0 +1,80 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+ <title>Circular queues</title>
+ <link rel="stylesheet" href="../styles.css" />
+ <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+
+<body>
+<h1>1.4. Circular queues</h1>
+
+<p>
+A circular queue is a particular implementation of a <a
+href="queue.html">queue</a>. It is very efficient. It is also quite useful
+in low level code, because insertion and deletion are totally independant,
+which means that you don't have to worry about an interrupt handler trying
+to do an insertion at the same time as your main code is doing a deletion.
+</p>
+
+<hr />
+<h2><a id="implementation">How does it work?</a></h2>
+
+
+<p>
+A circular queue consists of an array that contains the items in the queue,
+two array indexes and an optional length. The indexes are called the
+<em>head</em> and <em>tail</em> pointers and are labelled H and T on the
+diagram.
+</p>
+
+<div><img src="../images/circular.png" alt="A circular queue" /></div>
+
+<p>
+The head pointer points to the first element in the queue, and the tail
+pointer points just beyond the last element in the queue. If the tail
+pointer is before the head pointer, the queue wraps around the end of the
+array.
+</p>
+
+<hr />
+<h2><a id="emptyfull">Is the queue empty or full?</a></h2>
+
+
+<p>
+There is a problem with this: Both an empty queue and a full queue would be
+indicated by having the head and tail point to the same element. There are
+two ways around this: either maintain a variable with the number of items in
+the queue, or create the array with one more element that you will actually
+need so that the queue is never full.
+</p>
+
+<hr />
+<h2><a id="operations">Operations</a></h2>
+
+
+<p>
+Insertion and deletion are very simple. To insert, write the element to the
+tail index and increment the tail, wrapping if necessary. To delete, save
+the head element and increment the head, wrapping if necessary. Don't use a
+modulus operator for wrapping (<code>mod</code> in Pascal, <code>%</code> in
+C) as this is very slow. Either use an <code>if</code> statement or (even
+better) make the size of the array a power of two and simulate the
+<code>mod</code> with a binary <code>and</code> (<code>&amp;</code> in C).
+</p>
+
+<hr />
+
+<div>
+<a href="hash.html">[Prev]</a>
+<a href="bulkmove.html">[Next]</a>
+<a href="../index.html">[Up]</a>
+</div>
+<hr />
+<p>
+Last updated Sun Nov 28 22:04:38.0000000000 2004.
+Copyright Bruce Merry (bmerry '@' gmail dot. com).
+</p>
+</body>
+</html>

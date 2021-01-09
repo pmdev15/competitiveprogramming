@@ -1,0 +1,63 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+ <title>Queues</title>
+ <link rel="stylesheet" href="../styles.css" />
+ <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+
+<body>
+<h1>1.8. Queues</h1>
+
+<hr />
+<h2><a id="what">What is a queue?</a></h2>
+
+
+<p>
+A queue is a data structure that takes its name from a physical queue, such
+as at a supermarket. Items are inserted into a queue at one end and removed
+at the other. This principle is often referred to as <em>FIFO</em> (which
+stands for <em>First In First Out</em>) because the first item into the
+queue is the first one out.
+</p>
+
+<hr />
+<h2><a id="use">What's it for?</a></h2>
+
+
+<p>
+A queue is essential to any <a
+href="../algorithms/graphs.html#shortest">breadth first search</a>. It can
+also be used to simulate things like a printer queue that operates on a
+"first come, first serve" basis.
+</p>
+
+<hr />
+<h2><a id="implementation">Implementation</a></h2>
+
+
+<p>
+There are a number of ways of implementating queues. One method that is
+fairly efficient is a <a href="circular.html">circular queue</a>. A slightly
+easier method is a <a href="bulkmove.html">bulk move queue</a>. I sometimes
+use my own variety, in which I split the queue into two parts with an array
+for each. I remove items from the one and add to the other, and when the one
+I'm removing from is empty I swap the two. A queues can also be implemented
+as a linked list, but this isn't usually a good idea.
+</p>
+
+<hr />
+
+<div>
+<a href="stack.html">[Prev]</a>
+<a href="priority.html">[Next]</a>
+<a href="../index.html">[Up]</a>
+</div>
+<hr />
+<p>
+Last updated Sun Nov 28 22:04:38.0000000000 2004.
+Copyright Bruce Merry (bmerry '@' gmail dot. com).
+</p>
+</body>
+</html>

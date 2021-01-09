@@ -1,0 +1,157 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+ <title>The problem statement</title>
+ <link rel="stylesheet" href="../styles.css" />
+ <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+
+<body>
+<h1>5.1. The problem statement</h1>
+
+<hr />
+<h2><a id="format">The format</a></h2>
+
+
+<p>
+In general IOI-style problems have most of the following sections:
+</p>
+<ul>
+<li>An introduction that explains the requirements of the problem, without
+going into details like input format or constraints. Clarifications of
+ambiguous cases can go either in here or separately.</li>
+<li>Specifications of the input and output formats and filenames, including
+examples. It is a good idea to make the examples correspond, since that can
+aid understanding of the problem. However make sure that the formats are
+fully defined even without the examples. If either format includes lines with
+characters, make sure that you specify whether they are separated by spaces.
+If numbers can be floating point, make this clear (the IOI rules don't permit
+floating point formats, and they are usually bad news).</li>
+<li>Constraints on the input data, and optionally on the output data (e.g.
+<q>all output values can be represented by 32-bit signed integers</q>). There must
+be constraints (possibly implicit ones) on all the parameters, otherwise
+the programmer cannot choose data structures (even for numbers: what if they
+contain a million digits?) and algorithms properly. In some contests
+this is folded into other sections, but must still be present. In the
+SACO this is always an explicit section.</li>
+<li>Resource limits, such as CPU time and memory. In the SACO only the
+time limit is specified here; other contests vary, depending on whether
+constraints are set uniformly or per-problem.</li>
+<li>Scoring, if it is anything other than a simple all-or-nothing. For
+the SACO, there is always a section for scoring, and the scoring
+algorithm should be specified (rather than <q>partial marks for
+partially correct answers</q>).</li>
+</ul>
+<p>It is standard practice to <em>theme</em> problems in some way. For
+example, the USACO always sets problems about Farmer John and his cows,
+while recent SACOs have used a Monty Python theme. This serves to make
+the problem more interesting, but more importantly it allows the
+problem to be explained without the use of technical terms.</p>
+
+<hr />
+<h2><a id="general">General advice</a></h2>
+
+
+<ul>
+<li>Many problems are designed to model real life situations. There are many
+assumptions that can be made in real life, but you should explicitly state
+these in the problem to avoid ambiguity. It is also a good idea to list cases
+where a real life assumption cannot be made for your problem. On the
+other hand, you should avoid repetition, because it can lead to
+problems if the problem is later changed and only one copy is altered.</li>
+<li>Try to consider borderline cases. For example, if x lies <q>between
+A and B</q>,
+may it equal A or B? Does <q>within x seconds</q> mean that x seconds exactly is
+included or excluded?</li>
+<li>Also try to consider cases that affect the difficulty of the problem.
+For example, may a particular list of things contain duplicates? It could be
+that you didn't intend people to have to eliminate duplicates but they will
+have to anyway because they don't know that they're not expected to do so. Don't
+make people do more work than you intended when you thought up the
+problem.</li>
+<li>You should write a sample solution to your problem. Apart from the obvious
+reasons, it will often force you to think about ambiguities that you didn't
+consider when composing the problem.</li>
+<li>Avoid technical terms such as <q>network flow</q>. You should be able to
+explain the problem to someone who knows nothing of computer
+science.</li>
+</ul>
+
+<hr />
+<h2><a id="graphs">Graphs</a></h2>
+
+
+<p>
+<a href="../algorithms/graphs.html">Graph theory</a> problems have a whole set
+of common pitfalls for the problem designer. Always consider the items on
+this checklist and if appropriate, add information to your problem statement.
+</p>
+<ul>
+<li>May a vertex have an edge to itself?</li>
+<li>Are the edges directed? For example, is a road from A to B a one-way or
+two-way road?</li>
+<li>May there be more than one edge between two vertices? If the edges are
+directed, may these be in the same direction or only in opposite directions?</li>
+<li>Are edges duplicated in the input file? (this ought to be implicitly clear
+from the input format, but this is not always the case)</li>
+</ul>
+
+<p>
+There are also some variations on what a "path" may be:
+</p>
+<ul>
+<li>May it visit a vertex more than once?</li>
+<li>May it use an edge more than once?</li>
+<li>May it be a cycle?</li>
+<li>May it backtrack (i.e. A->B->A)?</li>
+</ul>
+
+<hr />
+<h2><a id="geometry">Geometry</a></h2>
+
+
+<p>Just as with graph theory, geometry has a host of special cases that
+sometimes need to be considered and clarified:
+</p>
+<ul>
+<li>Are the endpoints of a line considered to be on the line?</li>
+<li>Are the edges of a polygon considered to be inside or outside?</li>
+<li>Do lines intersect if the endpoint of one is on the other? And if they
+only share a vertex? What if they coincide?</li>
+<li>Are any structures degenerate? i.e. lines with 0 length, polygons with
+0 area etc.</li>
+<li>May polygons contain redundant vertices i.e. an internal angle of 180
+degrees?</li>
+<li>May polygons be non-convex?</li>
+<li>May polygons be self-intersecting? What about just self-meeting?</li>
+<li>Are two polygons that touch on an edge said to intersect? What if they
+just share one point?</li>
+<li>In input and output files, are the vertices of a polygon listed in sequence
+or in arbitrary order?</li>
+<li>Are the given points unique?</li>
+</ul>
+<p>
+Another issue with geometry is that the distance between two points is seldom
+an integer. This can present problems because the rounding error in floating
+point arithmetic may cause a perfectly valid algorithm to produce incorrect
+answers. Try to avoid using distances, especially comparing distances (for
+example, finding the shortest path). An alternative is to define a different
+distance function, such as the Manhattan distance (delta x plus delta y) which
+will always be an integer.
+</p>
+
+<hr />
+
+<div>
+<a href="index.html">[Prev]</a>
+<a href="testdata.html">[Next]</a>
+<a href="../index.html">[Up]</a>
+</div>
+<hr />
+<p>
+Last updated Mon Jun 19 17:54:25.0000000000 2006.
+Copyright Bruce Merry (bmerry '@' gmail dot. com).
+</p>
+</body>
+</html>

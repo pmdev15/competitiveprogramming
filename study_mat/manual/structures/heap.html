@@ -1,0 +1,67 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+ <title>Heaps</title>
+ <link rel="stylesheet" href="../styles.css" />
+ <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+
+<body>
+<h1>1.6. Heaps</h1>
+
+<p>
+A heap is a a type of <a href="tree.html">tree</a>. It is mostly useful as
+an implementation of a <a href="priority.html">priority queue</a>, and it is
+also the data structures used in <a href="../algorithms/sorting.html#heap">heapsort</a>.
+</p>
+
+<p>
+A heap is a binary tree with the properties that it is perfectly balanced
+and that any node is larger than both its children (or smaller than both
+its children - you can choose which definition to use based on the problem
+at hand). The operations that can be performed on a heap are insertion of an
+item into the heap and removal of the root of the heap.
+</p>
+
+<p>
+Although a heap is a tree, it is well suited to an array representation: The
+root is element 1, and the children of node <tt>i</tt> are <tt>2i</tt> and
+<tt>2i+1</tt>. For example:
+</p>
+
+<div><img src="../images/heap.png" alt="A binary heap" /></div>
+
+<hr />
+<h2><a id="insertion">Insertion</a></h2>
+
+
+<ol>
+<li>Add the new element to the next available slot / next array index.</li>
+<li>While the element is greater than its parent, swap it with the parent.</li>
+</ol>
+
+<hr />
+<h2><a id="deletion">Deleting the root</a></h2>
+
+
+<ol>
+<li>Replace the root with the last element.</li>
+<li>While this element is smaller than either of its children, swap it with
+the larger child (if there are two children).</li>
+</ol>
+
+<hr />
+
+<div>
+<a href="bulkmove.html">[Prev]</a>
+<a href="stack.html">[Next]</a>
+<a href="../index.html">[Up]</a>
+</div>
+<hr />
+<p>
+Last updated Sun Nov 28 22:04:38.0000000000 2004.
+Copyright Bruce Merry (bmerry '@' gmail dot. com).
+</p>
+</body>
+</html>

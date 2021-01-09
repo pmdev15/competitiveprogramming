@@ -1,0 +1,93 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+ <title>The standard template library</title>
+ <link rel="stylesheet" href="../styles.css" />
+ <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+
+<body>
+<h1>4.2. The standard template library</h1>
+
+<hr />
+<h2><a id="stlarrays">The STL without the objects</a></h2>
+
+
+<p>
+You can use STL functions that require iterators with normal C arrays,
+not just STL objects. The end of an array <code>arr</code> with
+<code>N</code> elements can be expressed as <code>arr + N</code>. Thus
+</p>
+<pre>
+sort(arr, arr + N);
+</pre>
+<p>
+will sort an array of <code>N</code> objects.
+</p>
+
+<p>
+The STL also has several places where it requires function objects.
+Depending on the nature of the object required, one can use ordinary
+functions instead. So for example, to sort an array of pointers to ints
+by the values pointed to, one could do the following:
+</p>
+<pre>
+bool compare(char * const &amp;a, char * const &amp;b)
+{ return *a &lt; *b; }
+.
+.
+.
+sort(arr, arr + N, compare);
+</pre>
+
+<hr />
+<h2><a id="stlext">HP/SGI/GCC extensions to the STL</a></h2>
+
+
+<p>
+The STL manual lists several extensions to the STL which are not
+part of the C++ standard. GCC 3 implements these extensions, but getting
+access to them is not entirely obvious. The first thing to do is to
+prepend <code>ext/</code> to include filenames e.g. <code>#include
+&lt;ext/hash_set&gt;</code>. You also need to include
+the <code>__gnu_cxx</code> namespace e.g. <code>using namespace
+__gnu_cxx</code>.
+</p>
+<p>
+A useful extension for loading data into arrays is the
+<code>copy_n</code> extension function. Here is an example:
+</p>
+<pre>
+#include &lt;ext/algorithm&gt;
+#include &lt;iterator&gt;
+#include &lt;fstream&gt;
+
+using namespace std;
+using namespace __gnu_cxx;
+
+int main()
+{
+    int N;
+    int numbers[100];
+
+    ifstream in("file.in");
+    in &gt;&gt; N;
+    copy_n(istream_iterator&lt;int&gt;(in), N, numbers);
+}
+</pre>
+
+<hr />
+
+<div>
+<a href="inline.html">[Prev]</a>
+<a href="../author/index.html">[Next]</a>
+<a href="../index.html">[Up]</a>
+</div>
+<hr />
+<p>
+Last updated Sun Nov 28 22:04:38.0000000000 2004.
+Copyright Bruce Merry (bmerry '@' gmail dot. com).
+</p>
+</body>
+</html>

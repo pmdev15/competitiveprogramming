@@ -1,0 +1,72 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+ <title>Authoring problems</title>
+ <link rel="stylesheet" href="../styles.css" />
+ <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+
+<body>
+<h1>5. Authoring problems</h1>
+
+<p>This page is intended as a resource for people who wish to create olympiad
+problems. It's mostly here because members of South African training squad
+are required to produce problems for the other members to attempt, so I felt
+it would be useful to have some advice.</p>
+
+<p>Before even considering the details of problem statements and test data,
+it is necessary to have a problem. This is not as difficult as it might
+at first sound, because it is not always necessary to have a brilliant
+and original problem. There are lots of existing problems, many of
+which are linked to from the <a
+href="http://olympiads.win.tue.nl/ioi/">IOI secretariat</a>. While you
+cannot copy the problem text or test data without the permission of the
+copyright holder, you can re-use an idea and just re-theme it. It is
+also not the case that hard problems are better: problems need to be
+chosen according to their target contests (or vice versa), and most
+contests aim for a range of difficulties. Easy but novel problems are
+probably the rarest.</p>
+
+<p>Assuming you have an original idea, or are adapting an idea from
+another problem, your next step is to think up solutions. Don't stop as
+soon as youe found a fast but complicated solution; there may be
+equally fast but simpler solutions. You should also consider what
+slower solutions people may use, since you may need to separate them
+from the faster ones, or in some cases you may decide that the faster
+solutions are too difficult and decide to give full credit to a slower
+solution. It is generally impractical to try to
+distinguish O(N) from O(N.log N) or sometimes even O(N<sup>2</sup>),
+because the I/O will tend to dominate the running time, and will vary
+enormously between languages (also keep in mind that, for example, a
+permutation of the numbers from 1 to N takes O(N.log N) digits in the
+input file). Often it is possible to tweak the problem slightly, for
+example by adding an extra loop around the outside, so that the
+relative impact of I/O shrinks. This will also reduce the size of input
+files, which makes them more practical to store and distribute and
+reduces that noise that could be introduced by disk caches and so on.</p>
+
+<p>Once you have a good idea for a problem and know what reward you
+want to give to various solutions, you are ready to begin writing the
+problem statement.</p>
+
+<ol>
+<li><a href="question.html">The problem statement</a></li>
+<li><a href="testdata.html">Creating test data</a></li>
+<li><a href="evaluation.html">Evaluating the problem</a></li>
+</ol>
+
+<hr />
+
+<div>
+<a href="../cpp/stl.html">[Prev]</a>
+<a href="question.html">[Next]</a>
+<a href="../index.html">[Up]</a>
+</div>
+<hr />
+<p>
+Last updated Mon Jun 19 17:45:45.0000000000 2006.
+Copyright Bruce Merry (bmerry '@' gmail dot. com).
+</p>
+</body>
+</html>

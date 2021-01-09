@@ -1,0 +1,94 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+ <title>Typecasting</title>
+ <link rel="stylesheet" href="../styles.css" />
+ <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+
+<body>
+<h1>3.7. Typecasting</h1>
+
+<hr />
+<h2><a id="what">What is typecasting?</a></h2>
+
+
+<p>
+Typecasting is pretending that a variable of one type is actually of another
+type (this isn't a formal definition). For example, a <code>boolean</code>
+variable could be typecast to a <code>byte</code>, which would allow the data
+in the variable to be treated as a number. You might want to do this if you
+wanted to add 1 to a number if a boolean variable is true, in which case you
+can just add the <code>byte</code> version of the variable.
+</p>
+
+<p>
+To typecast a variable in Pascal, use the type you want to typecast to as if
+it were a function e.g. <code>byte(a_boolean_var)</code> returns the data in
+the variable <code>a_boolean_var</code> as if it were a <code>byte</code>.
+Turbo Pascal won't let you just typecast anything to anything; it has some
+rules, one of which is that the data type and the data must have the data
+size. It will also sometimes do some automatic conversion, for example if
+you typecast an <code>integer</code> to a <code>longint</code>, it will
+actually convert the <code>integer</code> into a <code>longint</code>.
+</p>
+
+<hr />
+<h2><a id="why">Why use typecasting?</a></h2>
+
+
+<p>
+Typecasting is only useful if you know something about the way different
+types are stored internally. For example, a <code>boolean</code> is a byte
+that contains 1 for true or 0 for false, or a <code>char</code> is a byte
+containing the ASCII code of the character. Usually you use typecasting to
+access the data in a variable in a different way.
+</p>
+
+<p>
+A good example is typecasting an integer to a set. A set with the range 0 to
+15 (note that it must start at 0 because of the way Turbo Pascal deals with
+sets) is a 2 byte integer with each bit representing one element's presence
+or absence. Thus if an integer is put in a loop from 0 to 65535 (use a
+<code>word</code>, because 65535 is too big for an <code>integer</code>) and
+typecast to a set of this type inside the loop, then the set will loop
+through all subsets of the set 0..15!
+</p>
+
+<hr />
+<h2><a id="other">Another way to typecast</a></h2>
+
+
+<p>
+Sometimes Turbo Pascal doesn't allow you to do a typecast that it thinks
+doesn't make sense. If you know what you are doing, you can work around it
+with the <code>absolute</code> keyword. When declaring a variable followed by
+this keyword and the name of another variable, the compiler will make the
+two variables point to the same block of memory if it can. For example:
+</p>
+
+<pre>
+var
+   aset : set of 0..15;
+   aword : word absolute aset;
+</pre>
+
+<p>
+Here the two variables use the same two bytes of memory.
+</p>
+
+<hr />
+
+<div>
+<a href="text.html">[Prev]</a>
+<a href="../cpp/index.html">[Next]</a>
+<a href="../index.html">[Up]</a>
+</div>
+<hr />
+<p>
+Last updated Sun Nov 28 22:04:38.0000000000 2004.
+Copyright Bruce Merry (bmerry '@' gmail dot. com).
+</p>
+</body>
+</html>

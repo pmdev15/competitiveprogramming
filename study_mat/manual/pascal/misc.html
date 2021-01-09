@@ -1,0 +1,96 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+ <title>Miscellaneous</title>
+ <link rel="stylesheet" href="../styles.css" />
+ <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+
+<body>
+<h1>3.1. Miscellaneous</h1>
+
+<hr />
+<h2><a id="longints">Use longints</a></h2>
+
+
+<p>
+By default, Free Pascal follows Turbo Pascal in making
+<code>integer</code> a 16-bit type. However, when using a 32-bit
+machine, arithmetic with 16-bit integers is actually <em>slower</em>
+than with 32-bit integers. Using <code>longint</code> also reduces the
+chance of an arithmetic overflow. Since it is such habit to use
+<code>integer</code>, it may be worth doing a global search and replace
+after you have finished code to make you that you are using
+<code>longint</code> everywhere.
+</p>
+
+<p>
+One place where you might not want to use <code>longint</code> is in
+large arrays. Here <code>longints</code> use more memory. This also
+slows things down, because it wastes memory bandwidth and cache space.
+However, it is not a huge slowdown and you should consciously think
+about whether you need to use a smaller data type before doing so.
+</p>
+
+<hr />
+<h2><a id="int64">Large integers</a></h2>
+
+
+<p>
+Free Pascal supports a data type that Turbo Pascal does not:
+<code>int64</code>, a signed 64-bit integer. This supports very large
+integers, up to 2<sup>63</sup>-1 or 9223372036854775807.
+</p>
+
+<hr />
+<h2><a id="flags">Compiler flags</a></h2>
+
+
+<p>
+Both Free Pascal and Turbo Pascal support compiler directives for
+checking various types of errors. The two most important ones are
+</p>
+<ul>
+<li><code>$R+</code> Range checking. This checks that you are not
+accessing array elements out of bounds, and catches some cases of a
+number being too big for its data type.</li>
+<li><code>$Q+</code> Overflow checking. This catches arithmetic
+operations that generate a number too large for the result variable.</li>
+</ul>
+<p>
+These will slow your program down a lot, but are incredibly useful in
+catching bugs early. This is one of the few advantages Pascal
+programmers have at an olympiad, and you should put it to use. Turn
+these flags on while writing and testing your program. Turn them off
+only if you need to test the speed of your program, and to hand in. Do
+not forget to take them out when handing in, otherwise your program
+will run very slowly during evaluation.
+</p>
+
+<hr />
+<h2><a id="read">Reading integers</a></h2>
+
+
+<p>While all Pascal programmers will be familiar with the
+<code>readln</code> function, many do not know that the
+<code>read</code> function can be very handy for reading text files. If
+you have a file full of numbers, then <code>read</code> can be used to
+read in the next one - whether it is separated by a space or a newline
+from the previous one.
+</p>
+
+<hr />
+
+<div>
+<a href="index.html">[Prev]</a>
+<a href="copying.html">[Next]</a>
+<a href="../index.html">[Up]</a>
+</div>
+<hr />
+<p>
+Last updated Sat May 31 19:49:31.0000000000 2008.
+Copyright Bruce Merry (bmerry '@' gmail dot. com).
+</p>
+</body>
+</html>

@@ -1,0 +1,83 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+ <title>Inlining functions</title>
+ <link rel="stylesheet" href="../styles.css" />
+ <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+
+<body>
+<h1>4.1. Inlining functions</h1>
+
+<hr />
+<h2><a id="inlining">Inlining</a></h2>
+
+
+<p>
+When a compiler <em>inlines</em> a function, it takes the function body
+and places it directly in the code for the calling function. This
+eliminates the overhead of a procedure call, which can be a big gain
+for tiny functions that are called frequently. It can also help with
+big functions that are called frequently, but only from one or two
+places in the code. For large functions that are called from many
+places, it is not such a good idea, as it tends to make the code much
+larger which can reduce the efficiency. It is also completely
+impossible with recursion functions.
+</p>
+
+<p>
+Under GCC, one requests that a function be inlined by preceeding the
+function definition with the keyword <code>inline</code>. For example:
+</p>
+<pre>
+inline int min(int x, int y)
+{
+    return (x &lt; y) ? x : y;
+}
+</pre>
+<p>
+GCC does not actually perform inlining unless you are doing an
+optimising compile e.g. with <code>-O2</code>.
+</p>
+
+<hr />
+<h2><a id="macros">Macros</a></h2>
+
+
+<p>
+You may have noticed that inlined functions are doing a very similar
+job to macros. So what are the differences? Here are a few:
+</p>
+<ol>
+<li>Macros evaluate their arguments every time they are referenced.
+Inline functions behave like normal functions and only evaluate their
+arguments once.</li>
+<li>Inline functions are generally easier to debug, since any errors in
+the function manifest themselves when the function is defined, not when
+it is used. One can also step into inlined functions in a debug build
+(without optimisation).</li>
+<li>Macros are not type-specific, but on the other hand provide no type
+safety.</li>
+<li>Macros are more flexible, since they work at the lexical level.
+They allow things like concatenating two arguments into a single token.</li>
+</ol>
+<p>
+Generally it is better to use inline functions than macros where
+possible, largely due to the first point above.
+</p>
+
+<hr />
+
+<div>
+<a href="index.html">[Prev]</a>
+<a href="stl.html">[Next]</a>
+<a href="../index.html">[Up]</a>
+</div>
+<hr />
+<p>
+Last updated Sun Nov 28 22:37:23.0000000000 2004.
+Copyright Bruce Merry (bmerry '@' gmail dot. com).
+</p>
+</body>
+</html>

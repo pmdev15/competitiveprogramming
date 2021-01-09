@@ -1,0 +1,238 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+ <title>Network Flow</title>
+ <link rel="stylesheet" href="../styles.css" />
+ <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+
+<body>
+<h1>2.9. Network Flow</h1>
+
+<hr />
+<h2><a id="what">What is network flow?</a></h2>
+
+
+<p>
+The network flow problem can be phrased in several ways, the canonical
+one being: Given a computer network with point to point links of
+certain capacities, what is the greatest rate at one given machine can
+send data to another given machine? The problem is more complex that it
+first sounds because data flows can take several different paths and
+merge and split.
+</p>
+
+<p>
+The problem can be represented in
+<a href="graphs.html">graph theory</a>, with computers corresponding to
+nodes and the network links to edges. Every edge has a capacity (from the
+question) and a directed flow (which is part of the answer). The flows may
+not exceed the corresponding capacities and the inflow and outflow must be
+equal for every node other than the two nodes in question.
+The nodes in question are known as the <em>source</em> and the <em>sink</em>.
+</p>
+
+<p>
+An edge whose flow equals its capacity is said to be <em>saturated</em>. An
+important point about netflow flow that is initially not easy to grasp is that
+because flow is directed, an edge may be saturated when considered in one
+direction but not the other. I normally store both capacity and flow
+for each direction. Suppose there is an edge from A to B. For an
+undirected graph, capacity[A][B] = capacity[B][A], and for a directed
+graph capacity[B][A] = 0. I always have flow[A][B] equal the directed
+flow from A to B, so flow[B][A] = -flow[A][B]. The advantage of this
+approach is that in either direction one is constrained by
+flow[X][Y] &lt;= flow[Y][X], and saturation is equivalent to equality
+(so in a directed graph, a zero flow indicates saturation in the
+reverse direction).
+</p>
+
+<hr />
+<h2><a id="solution">Solution to network flow problem</a></h2>
+
+
+<p>
+The standard method for solving the network flow problem is known as the
+Ford-Fulkerson method, which is basically the following:
+</p>
+<ol>
+<li>Start with no flow along any edge.</li>
+<li>Find a path from source to sink that doesn't contain any saturated edges
+<em>in the direction from source to sink</em>.</li>
+<li>Increase the flow of every edge in this path by the same amount. The amount
+is the largest amount that will not cause one of the capacities to be
+exceeded.</li>
+<li>Go back to step 2 and repeat. When no such path exists, the flow will be
+maximised. The proof of this is beyond the scope of this page.</li>
+</ol>
+
+<hr />
+<h2><a id="which">Which path?</a></h2>
+
+
+<p>
+You may have noticed that the Ford-Fulkerson method is not really an algorithm,
+because it does not specify how to find the path. Research has found
+two reasonably simple methods that run quickly in most networks and
+reasonably fast even in extreme cases. The first is to take the
+shortest path and the second is to take the path along which the flow
+could be increased the most. It might seem tempting to use the longest
+path (since this would seem to "fill up" the network quickly) but in
+fact there are some networks where this can take arbitrarily long,
+apart from being difficult to find. Note that the choice of path
+finding algorithm only affects the speed of the algorithm, not the
+amount of the final flow.
+</p>
+
+<hr />
+<h2><a id="directed">Directed or undirected?</a></h2>
+
+
+<p>
+You might be wondering whether the edges are themselves directed. The answer
+is: they can be either directed or undirected. It only affects the algorithm
+in terms of the idea of a saturated edge: an edge is saturated in a particular
+direction if the flow cannot be increased in that direction, so a directed edge
+with no flow is actually saturated in the reverse direction.
+</p>
+
+<hr />
+<h2><a id="nodecap">Node capacities</a></h2>
+
+
+<p>
+So far we have only considered capacities in the edges; what about limiting
+the amount of data that can flow through a particular node? The Ford-Fulkerson
+method can't be applied directly to this problem, but fortunately it is possible
+to think of the problem in a different way that allows it to be applied.
+</p>
+
+<p>
+Firstly, all undirected edges need to be split into a pair of directed edges,
+one in each direction. At the end you may finish with flow in both directions,
+but this can be safely cancelled out.
+</p>
+
+<p>
+Using the computer analogy, imagine that all the input data comes in at one
+point, the output data leaves at another point, and that it must travel across
+an internal bus between them. The capacity of the node is the capacity of this
+bus, so just introduce it into the network as another link. The node
+representing the computer is split into two nodes, one representing the input
+port and the other the output port, and the bus is the edge between them.
+</p>
+
+<p>
+Once the other edges have been fixed up to point to the correct nodes based
+on their direction, we have an equivalent problem but with node capacities
+eliminated, which means that we can apply Ford-Fulkerson as usual.
+</p>
+
+<hr />
+<h2><a id="mincut">Minimum Cut</a></h2>
+
+
+<p>
+The network flow problem gives you another problem for free, known as
+the minimum cut problem. This problem asks for the minimum total weight
+of edges that must be removed to disconnect the source from the sink
+(so that there is no longer a path from the source to the sink).
+Surprising, the answer is that the total weight of the minimum cut (or
+mincut) is the same as the maximum network flow.
+</p>
+
+<p>
+To find the actual edges, first construct the flow graph using
+Ford-Fulkerson. Once this is done, there will be a set of nodes S that
+can be reached from the source by travelling only along edges that are
+not saturated in the direction of travel. Choosing all edges that
+connect nodes in S to nodes outside S forms a minimum cut.
+</p>
+
+<p>
+The network flow from S to the rest of the graph (call it R) will in fact be
+the total network flow, since the sink lies in R. However the flow from
+S to R is equal to the flow in the removed edges, each of which was
+saturated, so the weight of the mincut will equal the total network
+flow.
+</p>
+
+<p>
+To see this is in fact minimal, consider applying the above argument to
+some other cut. The difference is that the edges that are removed are
+not necessarily saturated, so the weight of the cut may be greater than
+the total flow.
+</p>
+
+<hr />
+<h2><a id="applications">Applications</a></h2>
+
+
+<p>
+There are many problems that can be solved with network flow that do not look
+like network flow. One example comes from a USA Computer Olympiad from several
+years ago: summarised, what is the smallest number of nodes that must fail in
+a network to possibly prevent two given computers to be able to communicate
+(the given nodes may not fail)?
+</p>
+
+<p>
+The solution is based on the <a href="#nodecap">weighted nodes</a>
+transformation. Remember that this turns every original node into an
+edge. Give each such edge a weight of 1, and the other edges an
+infinite weight (in practice, I think a weight of 3 will suffice).
+Find the minimum cut, which will consist only of these nodal edges, and
+then choose these corresponding nodes as the ones that must fail.
+</p>
+
+<p>
+Network flow also arises in certain limited cases. One such case is
+that of finding the maximal way to match up two sets. For example,
+given some boys and some girls at a dance and a list of pairs that are
+willing to dance with each other, find how many pairs can be matched up
+(where a person can only be matched up with one person and of the
+opposite sex).
+</p>
+
+<p>
+This doesn't look like network flow because there are no distinguished
+nodes to use as the source and sink. However one can create source and
+sink nodes that do not correspond to any attribute of the problem.
+Represent each person by a node, and if a boy is willing to dance with
+a girl then place a <em>directed</em> from the boy to the girl of
+weight 1. Create a new node as the source and connect it to each boy
+with weight 1, and connect each girl to a sink with weight 1. Now the
+number of matchings will equal the network flow, and the matchings
+themselves correspond to the boy-girl edges that are saturated.
+</p>
+
+<p>
+Notice that although the network flow problem would allow non-integer
+flows (such as a boy dancing half with one girl and half with another),
+an examination of the Ford-Fulkerson algorithm shows that as long as
+all weights are integers, the flows will also be integers.
+</p>
+
+<p>
+Unfortunately this algorithm <em>cannot</em> be easily extended to
+either the problem of weighted matching (such as a degree of
+willingness) or the problem where the objects to be matched do not fall
+into two distinct sets. Both can be solved in polynomial time, but the
+algorithms are more sophisticated.
+</p>
+
+<hr />
+
+<div>
+<a href="matching.html">[Prev]</a>
+<a href="general.html">[Next]</a>
+<a href="../index.html">[Up]</a>
+</div>
+<hr />
+<p>
+Last updated Sun Nov 28 22:04:38.0000000000 2004.
+Copyright Bruce Merry (bmerry '@' gmail dot. com).
+</p>
+</body>
+</html>

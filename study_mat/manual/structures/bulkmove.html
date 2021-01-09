@@ -1,0 +1,72 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+ <title>Bulk move queues</title>
+ <link rel="stylesheet" href="../styles.css" />
+ <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+
+<body>
+<h1>1.5. Bulk move queues</h1>
+
+<p>
+A bulk move queue is a particular implementation of a <a
+href="queue.html">queue</a>. It is not quite as efficient as a <a
+href="circular.html">circular queue</a> and uses much more memory, but this
+is made up for by its simplicity.
+</p>
+
+<hr />
+<h2><a id="implementation">How does it work?</a></h2>
+
+
+<p>
+It works very much like a <a href="circular.html">circular queue</a>, except
+that it doesn't "wrap around". Instead, you make the array much bigger
+than the maximum number of items in the queue. When you run out of room at
+the end of the array, you move the entire contents of the queue back to the
+front of the array (this is the "bulk move" from which the structure gets
+its name).
+</p>
+
+<hr />
+<h2><a id="operations">Operations</a></h2>
+
+
+<p>
+Insertion and deletion are very simple. To insert, write the element to the
+tail index and increment the tail. To delete, save the head element and
+increment the head. If after an insertion the tail points beyond the end of
+the array, then do the following:
+</p>
+<ol>
+<li>Copy the contents of the queue to the front of the array (I recommend
+the <code><a href="../pascal/copying.html#move">move</a></code> procedure in
+Pascal or the <code>memcpy</code> function in C, rather than doing it
+manually).</li>
+<li>Set the head pointer to the new head of the queue and the new tail
+pointer to the new tail of the queue.</li>
+</ol>
+<p>
+Note if the queue occupies more than half the array, then you must be
+careful that you don't overwrite the frontmost queue elements before they
+are copied because the old and new queue will overlap (and
+<code>memcpy</code> doesn't allow overlap - use <code>memmove</code> in this
+case).
+</p>
+
+<hr />
+
+<div>
+<a href="circular.html">[Prev]</a>
+<a href="heap.html">[Next]</a>
+<a href="../index.html">[Up]</a>
+</div>
+<hr />
+<p>
+Last updated Sun Nov 28 22:04:38.0000000000 2004.
+Copyright Bruce Merry (bmerry '@' gmail dot. com).
+</p>
+</body>
+</html>

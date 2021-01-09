@@ -1,0 +1,145 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+ <title>Trees</title>
+ <link rel="stylesheet" href="../styles.css" />
+ <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+
+<body>
+<h1>1.2. Trees</h1>
+
+<p>
+A tree is a hierachial data structure. An example is a directory tree
+(excluding any files in the tree): Each directory consists of a name and
+subdirectories.
+</p>
+
+<p>
+Trees are typically drawn as in the diagram below. The circles are the data
+elements (the names of directories) and the lines below each circle join it
+to its subtrees (subdirectories).
+<img src="../images/tree.png" alt="picture of a tree" />
+</p>
+
+<hr />
+<h2><a id="terminology">Terminology</a></h2>
+
+
+<p>
+The data elements in a tree are called <em>nodes</em>. The node at the "top"
+of a tree is called the <em>root</em> (shown in red). The <em>children</em>
+of a node are the nodes below it and connected to it (like subdirectories in
+a directory tree). A <em>leaf</em> is a node with no children (sometimes
+trees will only store actual data in the leaves).
+</p>
+
+<p>
+A node's <em>parent</em> is the node above it and 
+connected to it (every node except the root has a parent).
+<em>Descendants</em> and <em>ancestors</em> are defined in the same way as
+family relationships e.g. a parent's parent's parent is an ancestor and a
+child's child's child is a descendant. A subtree consists of a node and all
+its descendants (which is itself a tree, with the root being the chosen node).
+</p>
+
+<hr />
+<h2><a id="binary">Binary trees</a></h2>
+
+
+<p>
+The rest of this page will deal almost entirely with binary trees. A binary
+tree is a tree in which every node has at most two children, and the order
+of the children is usually important. The children are usually referred to
+as the <em>left child</em> and the <em>right child</em>. Also, if there is
+only one child, significance is usually still given to whether it is a left
+or a right child.
+</p>
+
+<p>
+The <em>left subtree</em> of a node is the subtree consisting of the left
+child and all its descendants, and likewise for the right subtree.
+</p>
+
+<hr />
+<h2><a id="search">Binary search trees</a></h2>
+
+
+<p>
+A binary search tree is a binary tree in which the data elements are of a
+type with some kind of ordering (e.g. integers or strings). The
+left subtree of any given node contains only children smaller than that
+node, and the right subtree contains only children larger than that node
+(children that are equal can go either way as long as you are consistent).
+</p>
+
+<p>
+Binary search trees are usually constructed one element at a time. To add a
+new element, start at the root and go left if the new element is smaller
+than the root and right otherwise. Repeat this at each node until you find
+an unoccupied space and add the new node there.
+</p>
+
+<p>
+To search for a given element, follow the same process as with adding a new
+element until you either find the element you want or find an empty spot, in
+which case the element isn't there.
+</p>
+
+<p>
+You can also convert a binary search tree into a sorted list of the elements
+by doing a <a href="#walk">in-order walk</a> of the tree. This is the
+basis of the <a href="../algorithms/sorting.html#tree">binary tree sort</a>.
+</p>
+
+<hr />
+<h2><a id="walk">Walking a tree</a></h2>
+
+
+<p>
+A "walk" of a tree is basically a way of ordering its elements. There is
+usually a particular action that has to be performed on each element in the
+given order.
+</p>
+
+<p>
+There are three standard types of walk. All of them are recursive, and all of them
+involve outputting the root, walking the left subtree and walking the right
+subtree. The difference is in the ordering. They are as follows:
+</p>
+
+<dl>
+<dt>Pre-order walk</dt>
+<dd>Visit the root first, then the left and right subtrees</dd>
+<dt>In-order walk</dt>
+<dd>Visit the left subtree, then the root, then the right subtree</dd>
+<dt>Post-order walk</dt>
+<dd>Visit the left and right subtrees first, then the root</dd>
+</dl>
+
+<p>
+The in-order walk is particularly useful on a <a href="#search">binary
+search tree</a>, because the elements are visited in sorted order. Walks are
+generally useful on trees where each node has some logical relation to its
+subtrees. For example, a tree could have arithmetic operators at nodes,
+which represent an operation to be applied to the subtrees, and numbers at
+the leaves. Then an in-order walk would produce normal notation while a
+post-order walk would produce the Reverse Polish or postfix notation used by
+old HP calculators.
+</p>
+
+<hr />
+
+<div>
+<a href="linkedlist.html">[Prev]</a>
+<a href="hash.html">[Next]</a>
+<a href="../index.html">[Up]</a>
+</div>
+<hr />
+<p>
+Last updated Wed May 28 19:34:56.0000000000 2008.
+Copyright Bruce Merry (bmerry '@' gmail dot. com).
+</p>
+</body>
+</html>

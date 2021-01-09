@@ -1,0 +1,167 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+ <title>Shortest path</title>
+ <link rel="stylesheet" href="../styles.css" />
+ <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+
+<body>
+<h1>2.7. Shortest path</h1>
+
+<p>
+One of the most basic and common problems in graph theory is to
+establish the shortest route between two nodes. In many cases the
+graph itself is not obvious. For example the problem may require the
+quickest way of solving a puzzle like Rubik's Cube. In this case the
+nodes are states and the edges are valid transitions.
+</p>
+
+<hr />
+<h2><a id="floyd">Floyd's Algorithm</a></h2>
+
+
+<p>
+Floyd's Algorithm solves a slightly different problem: it computes the
+minimum distance between <em>every</em> pair of nodes, without
+computing the routes themselves. What is particularly nice about
+Floyd's algorithm is that it very simple and very efficient, so even if
+you only need the distance between a few pairs of nodes, it may still
+be useful.
+Unfortunately while Floyd's algorithm is simple to remember and
+implement, it is not at all clear why it works. I'm going to state the
+algorithm, then attempt to explain it. However it's sometimes best just
+to go away and think about it, and maybe try a few examples yourself.
+</p>
+
+<p>
+Floyd's algorithm is best stated in code. The array <code>adj</code> is
+initialised to the adjacency matrix of distances (INF being a large
+constant meaning no edge), and it is modified <em>in place</em> to
+become the matrix of shortest distances.
+</p>
+<pre>
+for y := 1 to N do
+  for x := 1 to N do
+    if adj[x][y] &lt;&gt; INF then
+      for z := 1 to N do
+        if (adj[y][z] &lt;&gt; INF) and (adj[x][y] + adj[y][z] &lt; adj[x][z]) then
+          adj[x][z] := adj[x][y] + adj[y][z];
+</pre>
+<p>
+As one can see, the inner loop is extremely tight. It is also extremely
+important that the order of the loops is correct.
+</p>
+<p>
+To explain the algorithm, one needs to introduce notation. Let [X, Y,
+Q] represent the shortest distance from X to Y, using intermediate
+nodes 1, 2, ... Q only, taking the value INF if no such path exists.
+Floyd's algorithm is based on the observations that
+</p>
+<pre>
+[X, Z, 0] = adj[X][Z]
+[X, Z, Y] = min([X, Z, Y - 1], [X, Y, Y - 1] + [Y, Z, Y - 1])
+[X, Z, N] = shortest path(X->Z)
+</pre>
+<p>
+At the start of each iteration of the outer loop, <code>adj[X][Z]</code>
+represents [X, Z, Y - 1] for the particular value of Y used in the
+loop; at the end, it represents [X, Z, Y]. Looking closely at the
+loop you may notice some ordering conflicts: the values
+<code>adj[x][y]</code> and <code>adj[y][z]</code> may in fact represent
+[X, Y, Y] and [Y, Z, Y]. However it is easy to see that [X, Y, Y] = [X,
+Y, Y - 1] and [Y, Z, Y] = [Y, Z, Y - 1] so this does not make a
+difference.
+</p>
+
+<p>
+There are two other things worth noticing about Floyd's algorithm. The
+first is that it makes no assumptions about symmetry; it works
+perfectly well on directed graphs. The second is that apart from giving
+you shortest paths, it also tells you which paths exist at all. A very
+slight modification of the algorithm gives you Warshall's algorithm for
+determining precisely this (known as transitive closure). In fact the
+algorithms are so similar that they are often referred to as "the
+Floyd-Warshall algorithm".
+</p>
+
+<p>
+Finally, one should consider the efficiency of Floyd's algorithm: this
+is very easy since there are three nested loops from 1 to N, so the
+efficiency is clearly O(N<sup>3</sup>). It is tempting to think that it
+is more efficient for sparse graphs, because of the first
+<code>if</code> test. However as the algorithm progresses, the
+<code>adj</code> array rapidly becomes populated, so the
+<code>if</code> test has little effect on big-O time. What big-O
+analysis doesn't reveal is that the constant factor is very small.
+In practical situations Floyd's algorithm may still be faster on sparse
+graphs than algorithms that have better theoretical performance.
+</p>
+
+<hr />
+<h2><a id="dijkstra">Dijkstra's algorithm</a></h2>
+
+
+<p>
+Dijkstra's algorithm finds the shortest path between a specific node
+and all other nodes. This seems to be unnecessarily wasteful (only one
+target is required), but in fact the extra information comes for free).
+</p>
+
+<p>
+While the algorithm is running, the nodes are divided into three sets: the
+nodes that we are busy processing, the nodes we have finished processing
+and the nodes we haven't considered yet. All the nodes we are busy processing
+sit in a <a href="../structures/priority.html">priority queue</a>, and the
+priority is the length of the best path from A to the node found so far.
+Initially A is placed in the priority queue with priority 0. Then the following
+process is repeated until we finish processing B (or until the priority queue
+is empty, if we want to find the shortest path to all other nodes). P(X) is
+the priority of node X and XY is the length of edge XY.
+</p>
+<ol>
+<li>Pop the node with the lowest priority off the priority queue.
+Call this node V. P(V) is the length of the shortest path from
+A to V.</li>
+<li>Mark V as finished processing.</li>
+<li>Loop through all of V's neighbours that we haven't finished processing. Say
+W is the current neighbour being considered.</li>
+<li>If W isn't in the priority queue yet or it is but has a priority higher than
+P(V)+VW then
+<ul><li>set W's priority to P(V)+VW, and add it to the priority queue if
+necessary.</li>
+    <li>Store a pointer from W to V (e.g. have an array called prev, and set
+prev[W] to V).</li>
+</ul></li>
+</ol>
+
+<p>The length of the path to B is P(B). To construct the path itself, follow
+the stored pointers from B: they form a shortest path going back to A. It is
+sometimes convenient to apply the algorithm from B to A instead of from A to
+B, since the path itself then comes out from A to B instead of from B to A.
+</p>
+
+<p>The algorithm doesn't specify how to implement the priority queue. Using
+a <a href="../structures/heap.html">heap</a> results in an O((E+V)log V)
+algorithm which is good for sparse graphs, while using an unsorted list
+results in an O(V<sup>2</sup>) algorithm which is better for dense graphs.</p>
+
+<p>Note that if the graph is unweighted, then the priority queue can be
+replaced by a regular <a href="../structures/queue.html">queue</a> and this
+will be more efficient.</p>
+
+<hr />
+
+<div>
+<a href="graphs.html">[Prev]</a>
+<a href="matching.html">[Next]</a>
+<a href="../index.html">[Up]</a>
+</div>
+<hr />
+<p>
+Last updated Sun Oct  2 14:46:03.0000000000 2011.
+Copyright Bruce Merry (bmerry '@' gmail dot. com).
+</p>
+</body>
+</html>

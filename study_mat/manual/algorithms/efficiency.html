@@ -1,0 +1,145 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+ <title>Efficiency of algorithms</title>
+ <link rel="stylesheet" href="../styles.css" />
+ <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+
+<body>
+<h1>2.1. Efficiency of algorithms</h1>
+
+<hr />
+<h2><a id="bigo">Big O</a></h2>
+
+
+<p>
+"Big O" refers to a way of rating the efficiency of an algorithm. It is only
+a rough estimate of the actual running time of the algorithm, but it will
+give you an idea of the performance relative to the size of the input data.
+</p>
+
+<p>
+An algorithm is said to be of order <tt>O(</tt><i>expression</i><tt>)</tt>, 
+or simply of order <i>expression</i> (where <i>expression</i> is some function 
+of <tt>n</tt>, like <tt>n<sup>2</sup></tt> and <tt>n</tt> is the size of the
+data) if there exist numbers <tt>p</tt>, <tt>q</tt> and <tt>r</tt> so that the running
+time always lies below between <tt>p.</tt><i>expression</i><tt>+q</tt>
+for <tt>n</tt> &gt; <tt>r</tt>. Generally <i>expression</i> is made as
+simple and as small as possible.
+</p>
+
+<p>
+For example, the following piece of code executes the innermost code
+<tt>(n<sup>2</sup> - n) / 2</tt>, and the whole expression for the running
+time will be a quadratic. Since this lies below <tt>n<sup>2</sup></tt> for
+all <tt>n</tt> &gt; 100, the algorithm is said to have order
+<tt>O(n<sup>2</sup>)</tt>.
+</p>
+
+<pre>
+for i := n downto 2 do
+ begin
+  h := 1;
+  for j := 2 to i do
+   if list[j] &gt; list[h] then h := j;
+  temp := list[h];
+  list[h] := list[i];
+  list[i] := list[temp];
+ end;
+</pre>
+
+<p>
+(this is the algorithm for <a href="sorting.html#selection">Selection
+Sort</a>)
+</p>
+
+<hr />
+<h2><a id="fast">How fast is fast enough?</a></h2>
+
+
+<p>
+This depends on several factors, but mainly the size of the input data. In general, 
+<tt>O(n<sup>x</sup>)</tt> is considered reasonable (where <tt>x</tt> is a small
+constant) while <tt>O(x<sup>n</sup>)</tt> is considered unreasonable 
+unless <tt>n</tt> is going to be <em>really</em> small.
+<tt>O(n<sup>x</sup>)</tt> is generally referred to as <em>polynomial
+time</em>.
+</p>
+
+<p>
+However, if <tt>n</tt> is reasonably large (e.g. 1000) then
+<tt>O(n<sup>2</sup>)</tt> is reasonable while <tt>O(n<sup>4</sup>)</tt> is
+unreasonable. A good rule of thumb is to substitute the value of
+<tt>n</tt> into the expression, then divide by a number between 10
+million and 100 million to get a rough time in seconds (use 100 million
+for very short, simple inner loops and 10 million for complex inner
+loops).
+</p>
+
+<p>
+Another expression that sometimes insinuates itself in Big O expressions is
+<tt>log n</tt>. This is often the case in recursive algorithms which
+split the data in half at every stage, and <tt>log n</tt> is proportional to
+the number of levels of recursion. <tt>log n</tt> grows extremely slowly and
+is while it looks similar to <tt>n</tt> it is actually much closer to
+1. The base of the logarithm is not given since this only scales the
+result, but it is usually derived from a log base 2. However recursive
+algorithms usually have high overhead so this should be accounted for
+when applying the rule of thumb above.
+</p>
+
+<hr />
+<h2><a id="variable">What if the running time isn't fixed?</a></h2>
+
+
+<p>
+In many cases, the running time depends heavily on the nature of the input
+data. One example is a <a href="searching.html#linear">Linear Search</a>, in
+which you might find the item you're looking for right immediately but you
+might have to search through the entire list. In this situation, the worst
+case running time is used, in this case order <tt>O(n)</tt>. Sometimes average 
+running times are given (e.g. <a href="sorting.html#quick">Quick Sort</a>
+has a worst case running time of order <tt>O(n<sup>2</sup>)</tt>, but an
+average time of order <tt>O(n.log n)</tt>). However, this is quite hard to
+calculate.
+</p>
+
+<hr />
+<h2><a id="choose">Choosing an algorithm</a></h2>
+
+
+<p>
+Choosing an algorithm isn't a case of simply picking the fastest one and
+implementing it. Especially in a competition, you will also have to balance
+this against the time it will take you to code the algorithm. In fact
+you should use the <strong>simplest</strong> algorithm that will run in
+the time provided, since you generally get no more points for a faster
+but more complex algorithm. In fact it is sometimes worth implementing
+an algorithm that you know will not be fast enough to get 100%, since
+90% for a slow, correct algorithm is better than 0% for a fast but
+broken one.
+</p>
+
+<p>
+When choosing an algorithm you should also plan what type of <a
+href="../structures/">data structures</a> you intend to use. The speed of
+some algorithms depends on what types of data structures they are combined
+with.
+</p>
+
+<hr />
+
+<div>
+<a href="index.html">[Prev]</a>
+<a href="recursion.html">[Next]</a>
+<a href="../index.html">[Up]</a>
+</div>
+<hr />
+<p>
+Last updated Sun Nov 28 22:04:38.0000000000 2004.
+Copyright Bruce Merry (bmerry '@' gmail dot. com).
+</p>
+</body>
+</html>

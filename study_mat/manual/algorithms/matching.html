@@ -1,0 +1,104 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+ <title>Matching</title>
+ <link rel="stylesheet" href="../styles.css" />
+ <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+
+<body>
+<h1>2.8. Matching</h1>
+
+<hr />
+<h2><a id="what">What is matching?</a></h2>
+
+
+<p>
+Matching is a particular type of problem in <a href="graphs.html">graph
+theory</a>. The idea is to find pairs of vertices joined by edges, so that
+no vertex is in more than one pair and so that something is minimised or
+maximised.
+</p>
+
+<hr />
+<h2><a id="cardinalbipartite">Cardinal Bipartite Matching</a></h2>
+
+
+<p>
+The simplest type of matching is cardinal bipartite matching. In this
+problem the given graph is bipartite and the number of pairs must be
+maximised. Usually there are the same number of vertices in each part of the
+graph, but not always. This type of problem usually takes the form of
+assigning the member of one group (e.g. cows) to another (e.g. farmers).
+</p>
+
+<p>
+The algorithm is based on starting with an arbitrary set of pairs and then
+repeatedly increasing the number of pairs. The initial set can be build by
+looping through the vertices in one part of the graph and attempting to find
+matches for them in the other side of the graph. The process for increasing
+the number of pairs is chosen in such a way that when it will only fail when
+an optimum matching has been found.
+</p>
+
+<p>
+The process is very similar to a <a href="graphs.html#shortest">shortest
+path</a> algorithm. Label the two parts of the graph part A and part B.
+Start with any unmatched vertex in A, say X. Then perform a breadth first
+search, as if trying to construct the shortest path from X to every other
+vertex in the graph. The exception is that from vertices in A you may only
+use edges not in the matching, and from vertices in B you may only use edges
+in the matching (so from a vertex in B you may only go to its partner in A).
+The search terminates once an unmatched vertex in B is reached or no new
+vertices can be reached (the queue is empty).
+</p>
+
+<p>
+If an unmatched vertex in B (say Y) has been reached then there is a path
+from X to Y using only edges of the specified type (called an
+<em>augmenting</em> path). Suppose the path is X
+-&gt; B1 -&gt; A1 -&gt; B2 -&gt; A2 -&gt; ... -&gt; Bk -&gt; Ak -&gt; Y,
+were (Ai, Bi) is a pair for every i. Remove all these pairs and make new
+pairs (X, B1), (A1, B2), (A2, B3), ..., (Ak, Y). There is one more pair than
+there was before, so the number of pairs has increased.
+</p>
+
+<p>
+If there is any way to increase the number of pairs then this algorithm will
+find it for some X (so cycle through the X's). To see this, consider
+overlaying a non-optimal and an optimal pairing using XOR's (i.e. edges only
+appear in the overlay if they were matches in exactly one of the original
+matchings). It shouldn't be too hard to convince yourself that this new
+graph will contain a path of exactly the type for which the algorithm
+searches.
+</p>
+
+<p>
+It is actually more efficient to start the search from all unmatched edges
+in A by inserting them all into the queue at the beginning.
+</p>
+
+<p>
+This algorithm is O(VE), where V is the number of vertices and E the number
+of edges, if the correct data structures are used. This is because each
+iteration takes O(maxV,E) steps (O(V) for preprocessing and postprocessing
+and O(E) for the actual breadth first search), and the maximum number of
+iterations is O(minV,E) because the number of pairs cannot exceed the
+number of edges or vertices.
+</p>
+
+<hr />
+
+<div>
+<a href="shortest.html">[Prev]</a>
+<a href="netflow.html">[Next]</a>
+<a href="../index.html">[Up]</a>
+</div>
+<hr />
+<p>
+Last updated Sun Nov 28 22:04:38.0000000000 2004.
+Copyright Bruce Merry (bmerry '@' gmail dot. com).
+</p>
+</body>
+</html>

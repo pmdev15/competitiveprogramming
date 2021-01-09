@@ -1,0 +1,78 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+ <title>Timer</title>
+ <link rel="stylesheet" href="../styles.css" />
+ <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+
+<body>
+<h1>3.5. Timer</h1>
+
+<hr />
+<h2><a id="why">Why use a timer?</a></h2>
+
+
+<p>
+In practically all olympiads that use automatic evaluation, each test run
+has a time limit placed on it. While some problems are "all or nothing",
+there are other problems (particularly optimisation problems) for which it
+is possible to get some marks for a nearly correct answer. In these cases,
+you might have already found such an answer inside the time limit, in which
+case you want to stop and output this answer rather than exceeding the time
+limit to find the best answer.
+</p>
+
+<hr />
+<h2><a id="how">How do I measure time?</a></h2>
+
+
+<p>
+There are essentially three ways to do it. 
+</p>
+<ol>
+<li>Use a function provided by the contest organisers. This is normally a
+function that will tell you how long your program has been running.
+This is obviously the best way to do it.</li>
+<li>Use some library function to measure time. This may not match up to
+the way the contest environment measures time (e.g. CPU time versus
+wall clock time), and may not be legal in some contests.</li>
+<li>Use a counter which you increment inside a loop. You will need to
+calibrate this counter.</li>
+</ol>
+
+<hr />
+<h2><a id="other">Other issues</a></h2>
+
+
+<p>
+The primary issue is to decide how often to check the time. If you
+check too seldom, you might end up going over time anyway, but checking
+too often will slow down your program. Generally a good bet is to place
+the check just outside your innermost loop, but ultimately you need to
+decide what is best for each solution.
+</p>
+
+<p>
+You also need to exit once you've determined that
+you've used enough time. It is often a good idea to user a timer in
+conjunction with an <a href="exit.html">exit procedure</a>. In this case,
+executing <code>halt(0)</code> will set the exit procedure in motion, and
+all your cleaning up can be done in there.
+</p>
+
+<hr />
+
+<div>
+<a href="exit.html">[Prev]</a>
+<a href="text.html">[Next]</a>
+<a href="../index.html">[Up]</a>
+</div>
+<hr />
+<p>
+Last updated Sun Nov 28 22:32:52.0000000000 2004.
+Copyright Bruce Merry (bmerry '@' gmail dot. com).
+</p>
+</body>
+</html>

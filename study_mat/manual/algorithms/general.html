@@ -1,0 +1,66 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+ <title>General tips</title>
+ <link rel="stylesheet" href="../styles.css" />
+ <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+
+<body>
+<h1>2.10. General tips</h1>
+
+<hr />
+<h2><a id="memory">Memory use</a></h2>
+
+
+<p>
+Remember that a competition is different from real world programming.
+In the real world you should try to conserve memory. In competitions you
+usually have a set memory limit, and you get the same number of points
+irrespective of how much you use. For example, if you are using a
+<a href="../structures/hash.html">hash table</a> then you can make the
+hash table much bigger than you really need. You should also not be
+afraid to use larger types (32-bit vs. 16-bit integers, for example) than
+necessary, as overflows caused by using undersized data types aren't
+always easy to detect.
+</p>
+
+<hr />
+<h2><a id="pass">Multiple passes</a></h2>
+
+<p>
+In spite of what was said above, sometimes there is a shortage of memory.
+In some cases it is possible to work around this by making several passes
+through the input file. To illustrate this, consider the following
+problem: A number of coloured rectangles are placed on top of each
+other, with vertices at integer coordinates and aligned with the axes.
+You must find the area of each colour that is visible.
+</p>
+
+<p>
+Although there are better ways to solve this problem, a simple
+approach is to create a 2D array in memory to simulate the area in
+which the rectangles are being placed, and for each rectangle, draw it
+in on the array. The problem is that the constraints of the problem may
+make the canvas too large to fit into memory. If it is only slightly
+too large then the problem can be solved by splitting the canvas into
+a few smaller pieces, and making a separate pass through the input file
+for each piece of the canvas. For each piece one can store the area of
+each colour and then total this across all the pieces to get an answer.
+</p>
+
+<hr />
+
+<div>
+<a href="netflow.html">[Prev]</a>
+<a href="../pascal/index.html">[Next]</a>
+<a href="../index.html">[Up]</a>
+</div>
+<hr />
+<p>
+Last updated Sun Nov 28 22:04:38.0000000000 2004.
+Copyright Bruce Merry (bmerry '@' gmail dot. com).
+</p>
+</body>
+</html>

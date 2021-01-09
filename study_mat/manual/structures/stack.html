@@ -1,0 +1,80 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+ <title>Stacks</title>
+ <link rel="stylesheet" href="../styles.css" />
+ <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+
+<body>
+<h1>1.7. Stacks</h1>
+
+<hr />
+<h2><a id="what">What is a stack?</a></h2>
+
+
+<p>
+A stack is a data structure that works like a stack of items, such as
+plates. Items can be placed onto the stack, and the most recently added item
+can be removed at any point. This principle is sometimes referred to as
+<em>LIFO</em> (which stands for <em>Last In First Out</em>) because the
+last item onto the stack is the first one off it.
+</p>
+
+<hr />
+<h2><a id="use">What's it for?</a></h2>
+
+
+<p>
+Stacks have a number of uses. One of them is recursion: although the
+compiler usually hides the details for you, the arguments to procedures as
+well as the return addresses are placed on a stack and removed when the
+procedure exits. You might need a stack if you are simulating recursion.
+</p>
+
+<p>
+Another use is to evaluate expressions in postfix or Reverse Polish notation
+(used by old HP calculators). Basically place numbers on the stack as they
+are encountered, and whenever an operator is found, pop the top two numbers
+off the stack, apply the operator to them and push the result back on the
+stack.
+</p>
+
+<hr />
+<h2><a id="implementation">Implementation</a></h2>
+
+
+<p>
+Stacks are easier to implement that <a href="queue.html">queues</a> because
+you only ever work at one end. The simplest method is to keep an array that
+contains the items (with the bottom stack element at the start of the array)
+and a count of how many items there are. To push an item onto the stack,
+increase the count and write it into the array. To pop an item off the
+stack, copy the data from the array and decrease the count.
+</p>
+
+<p>
+The only disadvantages of this approach are the limits imposed by arrays in
+some environments such as the 64K limit on data structures in real mode
+environments (e.g. Turbo Pascal) and the inability to easily resize an array
+(although you can get around this in Pascal with <a
+href="../pascal/dynamic.html">dynamic allocation</a>). It is possible to
+implement a stack using a <a href="linkedlist.html">linked list</a>, but it
+is a lot more complicated.
+</p>
+
+<hr />
+
+<div>
+<a href="heap.html">[Prev]</a>
+<a href="queue.html">[Next]</a>
+<a href="../index.html">[Up]</a>
+</div>
+<hr />
+<p>
+Last updated Sun Nov 28 22:04:38.0000000000 2004.
+Copyright Bruce Merry (bmerry '@' gmail dot. com).
+</p>
+</body>
+</html>

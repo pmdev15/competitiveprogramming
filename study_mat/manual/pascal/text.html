@@ -1,0 +1,53 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+ <title>Text files</title>
+ <link rel="stylesheet" href="../styles.css" />
+ <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+
+<body>
+<h1>3.6. Text files</h1>
+
+<hr />
+<h2><a id="redirecting">Redirecting</a></h2>
+
+
+<p>
+If you are debugging a program that writes to a file, you may want to
+redirect the output to the screen. To do this, simply change the filename in
+the <code>assign</code> statement to <code>''</code> (the empty string). You
+can also get input from keyboard instead of file by doing the same thing for
+an input file.
+</p>
+
+<p>
+Here's a trick for lazy people: if you <code>assign</code> and
+<code>reset</code> the file variable <code>input</code>, then
+<code>readln</code> statements that don't specify a file will read from the
+file you <code>assign</code>ed instead of from keyboard. If you do the same
+thing for the <code>output</code> variable then you can have a default
+output file instead of writing to the screen.
+</p>
+
+<p>
+If the problem you're solving takes input and output from standard in
+and standard out (think keyboard and screen), then
+tricks can be reversed to allow one to work with files while testing.
+</p>
+
+<hr />
+
+<div>
+<a href="timer.html">[Prev]</a>
+<a href="typecasting.html">[Next]</a>
+<a href="../index.html">[Up]</a>
+</div>
+<hr />
+<p>
+Last updated Sun Nov 28 22:04:38.0000000000 2004.
+Copyright Bruce Merry (bmerry '@' gmail dot. com).
+</p>
+</body>
+</html>

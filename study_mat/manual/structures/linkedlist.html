@@ -1,0 +1,92 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+ <title>Linked lists</title>
+ <link rel="stylesheet" href="../styles.css" />
+ <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+
+<body>
+<h1>1.1. Linked lists</h1>
+
+<p>
+A linked link is a simple way to store a list of items. It's main advantage
+over arrays is that it is very quick to insert and delete items. It can also
+change size dynamically. The disadvantages are that you cannot directly
+reference the nth element, and a memory overhead.
+</p>
+
+<hr />
+<h2><a id="implementation">How does it work?</a></h2>
+
+
+<p>
+A linked list consists of a number of <em>nodes</em>, each of which consists
+of a piece of data and a pointer to the next node. In the picture, each big
+rectangle is a node. The left block is the data (in this case, a character)
+and the right block is the pointer. The last pointer is a null pointer.
+<img src="../images/linked.png" alt="A linked list" />
+</p>
+
+<p>
+The nodes can reside anywhere in memory, independant of each other, and are
+allocated as needed. The variable used to access the list is usually a
+pointer to the first node (called the head). Sometimes it is also useful to
+have a pointer to the last node (called the tail). I will call these the
+head and tail pointers respectively.
+</p>
+
+<hr />
+<h2><a id="insertion">Insertion</a></h2>
+
+
+<p>
+To insert an element <tt>X</tt> after node <tt>A</tt>, do the following:
+</p>
+<ol>
+<li>Allocate memory for a new node, <tt>B</tt>.</li>
+<li>Make the data element of <tt>B</tt> equal to <tt>X</tt>.</li>
+<li>Make the pointer of <tt>B</tt> equal the pointer of <tt>A</tt>.</li>
+<li>Make the pointer of <tt>A</tt> equal the address of B.</li>
+</ol>
+
+<p>
+To insert an element <tt>X</tt> at the front of a list, do the following:
+</p>
+<ol>
+<li>Allocate memory for a new node, <tt>B</tt>.</li>
+<li>Make the data element of <tt>B</tt> equal to <tt>X</tt>.</li>
+<li>Make the pointer of <tt>B</tt> equal the head pointer.</li>
+<li>Make the head pointer equal the address of <tt>B</tt>.</li>
+</ol>
+
+<hr />
+<h2><a id="deletion">Deletion</a></h2>
+
+
+<p>
+To delete a node, do the following:
+</p>
+<ol>
+<li>Save a copy of the pointer to the node.</li>
+<li>Set the previous element's pointer (or the head pointer, if deleting the
+first element) to the current element's pointer.</li>
+<li>Dispose of the memory allocated to the deleted node, using the saved
+pointer.</li>
+</ol>
+
+<hr />
+
+<div>
+<a href="index.html">[Prev]</a>
+<a href="tree.html">[Next]</a>
+<a href="../index.html">[Up]</a>
+</div>
+<hr />
+<p>
+Last updated Sun Nov 28 22:04:38.0000000000 2004.
+Copyright Bruce Merry (bmerry '@' gmail dot. com).
+</p>
+</body>
+</html>

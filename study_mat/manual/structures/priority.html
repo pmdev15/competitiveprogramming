@@ -1,0 +1,48 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+ <title>Priority queues</title>
+ <link rel="stylesheet" href="../styles.css" />
+ <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+
+<body>
+<h1>1.9. Priority queues</h1>
+
+<p>
+A priority queue is similar to a <a href="queue.html">queue</a>. The
+difference is that every item has an associated priority, and instead of
+removing the item that has been in the queue the longest, you remove the
+item with the highest priority. This is like a print queue, where higher
+priority jobs are printed first. Another use of a priority queue is
+simulations, where the priority of an event is the time that it will take
+place. Thus events can be scheduled in any order, and then simulated in
+chronological order.
+</p>
+
+<hr />
+<h2><a id="implementation">Inplementation</a></h2>
+
+
+<p>
+For priority queues that could get very large, a <a href="heap.html">heap</a> 
+is by far the best option. However, for small priority queues (say less that
+50 elements) a simpler solution like a sorted array or a sorted <a
+href="linkedlist.html">linked list</a> will probably run faster.
+</p>
+
+<hr />
+
+<div>
+<a href="queue.html">[Prev]</a>
+<a href="../algorithms/index.html">[Next]</a>
+<a href="../index.html">[Up]</a>
+</div>
+<hr />
+<p>
+Last updated Sun Nov 28 22:04:38.0000000000 2004.
+Copyright Bruce Merry (bmerry '@' gmail dot. com).
+</p>
+</body>
+</html>

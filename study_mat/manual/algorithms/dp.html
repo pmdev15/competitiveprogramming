@@ -1,0 +1,213 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+ <title>Dynamic programming</title>
+ <link rel="stylesheet" href="../styles.css" />
+ <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+
+<body>
+<h1>2.3. Dynamic programming</h1>
+
+<hr />
+<h2><a id="what">What is dynamic programming?</a></h2>
+
+
+<p>
+Dynamic programming is not a specific algorithm, but rather a
+programming technique (like recursion). It is best described as
+creating solutions to large problems by combining solutions to smaller
+problems. On some problems, applying dynamic programming can change the
+<a href="efficiency.html">efficiency</a> from exponential to
+polynomial.
+</p>
+
+<hr />
+<h2><a id="example">An example</a></h2>
+
+
+<p>
+Consider the problem of computing the Nth Fibonacci number F(N). The
+Fibonacci sequence starts 1, 1, 2, 3, 5, 8, ..., with each number being
+the sum of the previous two. So a simple recursive implementation might
+look like this:
+</p>
+<pre>
+function fib(n : integer) : integer;
+begin
+  if n &lt;= 2 then fib := 1
+  else fib := fib(n - 2) + fib(n - 1);
+end;
+</pre>
+
+<p>
+That is all well and good, but how efficienct is it? It turns out to
+take time proportional to the <em>answer</em>, which is in fact
+exponential time (<tt>O(s<sup>n</sup>)</tt>, where <tt>s</tt> is the
+golden ratio). This example is usually used to show the pitfalls of
+recursion, but also provides a simple example of converting a problem
+to dynamic programming.
+</p>
+
+<p>
+The key observation is that the recursive function is a true
+function in the mathematical sense: it has no side effects, and the
+output depends only on the input <tt>n</tt>. This means that we don't
+have to start by asking for the Nth Fibonacci number and work
+downwards, but can start with the first one and work upwards. Here is
+the code (<tt>arr</tt> is an array that is assumed to be big enough):
+</p>
+<pre>
+function fib(n : integer) : integer;
+var
+  i : integer;
+begin
+  arr[1] := 1;
+  arr[2] := 1;
+  for i := 3 to n do
+    arr[i] := arr[i - 1] + arr[i - 2];
+  fib := arr[n];
+end;
+</pre>
+<p>
+This computes the smaller problems of finding F(1), F(2), F(3) and so
+on, and combines these to produce the answers to the bigger problem of
+finding F(n).
+</p>
+
+<hr />
+<h2><a id="general">The general approach</a></h2>
+
+
+<p>
+Identifying problems that can be solving with dynamic programming is
+something that comes with practice. To begin with, the following
+procedure will help you see the dynamic programming solutions.
+</p>
+<ol>
+<li>Write a recursive solution to the problem.</li>
+<li>Modify the recursive function until it becomes a mathematical
+function. That is, it must have no side effect and the answer must
+depend only on the parameters. It may also depend on global variables
+but these must be static input data, not variables that change over the
+course of the program. If you cannot modify the recursion to do this,
+then it is possible that the problem cannot be solved with dynamic
+programming.</li>
+<li>Try to reduce the number of parameters as much as possible. If
+there are parameters that are the same for the entire program, make
+them global variables. If there are parameters that can be calculated
+from other parameters, remove them.</li>
+<li>Create an array (possibly multi-dimensional) whose indices
+correspond to the parameters of the recursive function. The array
+should be able to hold the answer for every possible call to the
+function.</li>
+<li>Work out what dependencies are used in the recursive function. In the
+Fibonacci example, F(n) depends on F(n - 1) and F(n - 2).</li>
+<li>Write nested loops to loop over all possible inputs to the
+function, up to the inputs you actually want. Organise the loops so
+that dependencies are satisfied (e.g. so that F(n - 1) and F(n - 2) are
+computed before they are needed to compute F(n)). For each set of
+inputs, compute the output and store it into the array. Do not call the
+recursive function but rather get the answer from the array.</li>
+</ol>
+
+<hr />
+<h2><a id="memory">Saving memory</a></h2>
+
+
+<p>
+Sometimes the parameter space (the set of all legal input parameters)
+is too large to store in an array. This will usually happen if there
+are several parameters. To get around this, it is sometimes possible to
+get around this by only storing a subset of the parameter space (this
+depends on the problem). To return to the Fibonacci problem, we see
+that we only need to keep the last two Fibonacci numbers, as the
+previous ones are never used again. The modified code is:
+</p>
+<pre>
+function fib(n : integer) : integer;
+var
+  f1, f2, cur, i : integer;
+begin
+  f1 := 1;
+  f2 := 1;
+  cur := 1;
+  for i := 3 to n do
+  begin
+    f1 := f2;
+    f2 := cur;
+    cur := f1 + f2;
+  end;
+  fib := cur;
+end;
+</pre>
+<p>
+More generally, the array will have multiple dimensions, and sometimes
+only one or two "rows" of the array are needed at one time. These cases
+can be identitied from the dependencies: in the Fibonacci example, F(n)
+depends only on the previous two elements, so those are all that need
+to be kept.
+</p>
+
+<hr />
+<h2><a id="memoise">Memoisation</a></h2>
+
+
+<p>
+Sometimes the dependencies in problems are rather complicated, and this
+can make the ordering of the loops rather tricky. This often arises in
+problems involving <a href="graphs.html">graphs</a>, where the
+dependencies are edges in the graph. Another problem with writing loops
+is that it is sometimes more efficient to avoid solving sub-problems
+that are never actually used to solve the main problem.
+</p>
+
+<p>
+Both of these problems are addressed by a technique known as
+<em>memoisation</em> or <em>caching</em>. It is equivalent to dynamic
+programming, but I find it to be more work and generally only implement
+it when these problems arise. The basic approach is to stop after step
+4 in the process above, leaving you with a recursive function and an
+array for holding the outputs. Initially tag all the array elements to
+indicate that they have not been computed (e.g. by storing -1). Then
+modify the recursive function to return the array value if it has
+already been computed, and to do the work otherwise. The array thus
+acts as a <em>cache</em> of results that have already been computed.
+Reusing the Fibonacci example:
+</p>
+<pre>
+var
+   cache : array[1..MAXN] of longint;
+
+procedure initialise;
+begin
+     fill cache with -1's, indicating that the value isn't known
+     fillchar(cache, sizeof(cache), 255); 
+     if we initialise the first 2 here, it simplies the real function
+     cache[1] := 1;
+     cache[2] := 1;
+end;
+
+function fib(n : integer) : integer;
+begin
+     if (cache[n] = -1) then
+       cache[n] := fib(n - 1) + fib(n - 2);
+     fib := cache[n];
+end;
+</pre>
+
+<hr />
+
+<div>
+<a href="recursion.html">[Prev]</a>
+<a href="sorting.html">[Next]</a>
+<a href="../index.html">[Up]</a>
+</div>
+<hr />
+<p>
+Last updated Sat May 31 19:48:29.0000000000 2008.
+Copyright Bruce Merry (bmerry '@' gmail dot. com).
+</p>
+</body>
+</html>

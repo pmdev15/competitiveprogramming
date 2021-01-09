@@ -1,0 +1,79 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+ <title>Searching</title>
+ <link rel="stylesheet" href="../styles.css" />
+ <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+
+<body>
+<h1>2.5. Searching</h1>
+
+<p>
+If you know you are going to need to search for an item in a set, you will
+need to think carefully about what type of data structure you will use for
+that set. At school level, the only searches that get mentioned are for
+sorted and unsorted arrays. However, these are not the only data types that
+are useful for searching.
+</p>
+
+<hr />
+<h2><a id="linear">Linear search</a></h2>
+
+
+<p>
+Start at the beginning of the list and check every element of the list. Duh.
+Very slow (order <tt>O(n)</tt>) but works on an unsorted list.
+</p>
+
+<hr />
+<h2><a id="binary">Binary search</a></h2>
+
+
+<p>
+This is used for searching in a sorted array. Test the middle element of the
+array. If it is too big, repeat the process in the left half of the array,
+and the right half if it's too small. In this way, the amount of space that
+needs to be searched is halved every time, so the time is <tt>O(log n)</tt>.
+</p>
+
+<hr />
+<h2><a id="hash">Hash search</a></h2>
+
+
+<p>
+Searching a <a href="../structures/hash.html">hash table</a> is easy and
+extremely fast: Just find the hash value for the item you're looking for,
+then go to that index and start searching the array until you find what
+you're looking for or you hit a blank spot. The order is pretty close to <tt>O(1)</tt>, 
+depending on how full your hash table is.
+</p>
+
+<hr />
+<h2><a id="binarytree">Binary tree search</a></h2>
+
+
+<p>
+Searching a binary tree is just as easy as searching a hash table, but it is
+usually slower (especially if the tree is badly unbalanced). Just start at
+the root, then go down the left subtree if the root is too big and the right
+subtree if it is too small. Repeat until you find what you want or the
+subtree you want isn't there. The running time is <tt>O(log n)</tt> on
+average and <tt>O(n)</tt> in the worst case.
+</p>
+
+<hr />
+
+<div>
+<a href="sorting.html">[Prev]</a>
+<a href="graphs.html">[Next]</a>
+<a href="../index.html">[Up]</a>
+</div>
+<hr />
+<p>
+Last updated Sun Nov 28 22:04:38.0000000000 2004.
+Copyright Bruce Merry (bmerry '@' gmail dot. com).
+</p>
+</body>
+</html>

@@ -1,0 +1,101 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+ <title>Dynamic allocation</title>
+ <link rel="stylesheet" href="../styles.css" />
+ <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+
+<body>
+<h1>3.3. Dynamic allocation</h1>
+
+<hr />
+<h2><a id="problem">The problem</a></h2>
+
+
+<p>
+The <code>new</code> command in Pascal does not allow you to choose
+how much memory to allocate at run time; thus when creating an array you
+must choose an upper bound in advance. This presents problems when for
+example you need 200 lists with a maximum total size of 60000 bytes. Since
+each array could be up to 60000 bytes by itself, you would need to allocate
+60000 bytes to each array. This is clearly not practical. The usual solution
+in this case is to use linked lists. However, linked lists are not well
+suited to all applications, have a high memory overhead and are usually slow
+to work with. They are also more difficult to write and debug.
+</p>
+
+<hr />
+<h2><a id="solution">The solution</a></h2>
+
+
+<p>
+The solution is <em>dynamic allocation</em>, which means to allocate to each
+array only as much memory as it needs at run time. This will be old news to
+C programmers who are basically forced to do this using the
+<code>malloc</code> command. In Pascal you need to use the
+<code>getmem</code> and <code>freemem</code> commands.
+</p>
+
+<hr />
+<h2><a id="implementation">Implementation</a></h2>
+
+
+<pre>
+type
+    integer_array = array[1..30000] of integer;
+    integer_pointer = ^integer_array;
+var
+   the_pointer : integer_pointer;    {pointer to access the array}
+   number : integer;                 {actual number of items}
+begin
+     {get the actual number of items}
+     getmem(the_pointer, number * sizeof(integer));
+     {do stuff with the the_pointer^ array}
+     freemem(the_pointer, number * sizeof(integer));
+end.
+</pre>
+
+<p>
+This code illustrates how to dynamically allocate memory for the array. Note
+that although the upper limit of 30000 is arbitrary: the actual limit is
+<code>number</code>, and it is up to you to make sure that you never use a
+higher index (otherwise some really weird stuff can happen). You should make
+the arbitrary limit as high as possible to prevent range check errors that
+will result if the error checker thinks you are trying to access something
+that is out of bounds (the range checker doesn't know about dynamic allocation).
+You must also make sure that the <code>freemem</code> command specifies the
+same amount of memory as the <code>getmem</code> command.
+</p>
+
+<hr />
+<h2><a id="resizing">Resizing</a></h2>
+
+
+<p>
+It is not possible to directly resize a dynamically allocated array. You
+must allocate a new array, <a href="copying.html#move">copy</a> the data into
+the new array and free the old array.
+</p>
+
+<p>
+Because of this, it may sometimes be necessary to make an initial pass of
+the input file to determine how much memory to allocate to each array before
+doing the main pass to fill the arrays with data.
+</p>
+
+<hr />
+
+<div>
+<a href="copying.html">[Prev]</a>
+<a href="exit.html">[Next]</a>
+<a href="../index.html">[Up]</a>
+</div>
+<hr />
+<p>
+Last updated Sun Nov 28 22:04:38.0000000000 2004.
+Copyright Bruce Merry (bmerry '@' gmail dot. com).
+</p>
+</body>
+</html>

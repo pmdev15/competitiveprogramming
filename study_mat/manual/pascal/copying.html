@@ -1,0 +1,65 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+ <title>Copying data</title>
+ <link rel="stylesheet" href="../styles.css" />
+ <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+
+<body>
+<h1>3.2. Copying data</h1>
+
+<hr />
+<h2><a id="fillchar">Fillchar</a></h2>
+
+
+<p>
+<code>fillchar</code> is a Pascal function that allows you to fill any
+data structure with a particular byte. Although it would appear to only be
+useful for arrays of bytes, a little knowledge of the storage format of
+other structures can make it a lot more useful.
+</p>
+
+<p>
+Many data types can be zeroed by using <code>fillchar</code> with an
+argument of 0. This includes all integer and floating point types as well as
+the <code>set</code> type (makes it the empty set), and will set boolean
+variables to false. A value of 255 (0xff) will set signed integer data types
+to -1, and unsigned integer data types to their largest possible value. A
+value of 127 (0x7f) will set signed integer data types to a value close to
+their largest value.
+</p>
+
+<p>
+In many cases, these operations could be done with a <code>for</code>
+loop. The reasons for using <code>fillchar</code> are that it is quicker to
+write and it is quite optimised.
+</p>
+
+<hr />
+<h2><a id="move">Move</a></h2>
+
+
+<p>
+A similar function to <code>fillchar</code> is <code>move</code>. This
+allows a chunk of data to be copied from one memory location to another. It
+is more flexible than the assignment operator because you don't have to copy
+complete data structures; you can select any region of memory you like. This
+makes it quite handy when using <a href="dynamic.html">dynamic arrays</a>.
+</p>
+
+<hr />
+
+<div>
+<a href="misc.html">[Prev]</a>
+<a href="dynamic.html">[Next]</a>
+<a href="../index.html">[Up]</a>
+</div>
+<hr />
+<p>
+Last updated Sun Nov 28 22:04:38.0000000000 2004.
+Copyright Bruce Merry (bmerry '@' gmail dot. com).
+</p>
+</body>
+</html>

@@ -1,0 +1,63 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+ <title>Evaluation</title>
+ <link rel="stylesheet" href="../styles.css" />
+ <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+
+<body>
+<h1>5.3. Evaluation</h1>
+
+<p>Nowdays, most algorithm contests are evaluated using automatic
+grading software that takes care of the details of putting the right
+files in the right place at the right time, enforcing constraints and
+security, summarising scores and so on. For conventional problems, the
+problem author can be blissfully unaware of the inner workings, but in
+some cases it is necessary to be familiar with the limitations of
+whichever grading system is used.</p>
+
+<p>The first question is whether there is to be a single correct
+answer. The advantage of a single correct answer is that it is easy to
+evaluate, as it need only be compared to the model answer, and the
+grading system may well automate this. The disadvantage is that a
+single number in the output (or worse, a yes/no response) may be
+correctly returned even by a broken program, or one that is guessing.
+In a contest such as TopCoder, where one gets a question completely
+right or not at all, this is not a major problem, but for other
+contests like the IOI, it can cause marks to be higher than they
+should. In some cases this can be avoided by requiring a more detailed
+output file, with some tiebreaker rule to ensure a unique correct
+answer. The advantage of a more complete output file is that it is
+easier to prove that a contestant is wrong and provide helpful
+feedback, such as indicating illegal moves made.</p>
+
+<p>You should also keep in mind that it is standard practice to have a
+single input source and a single output sink, and the SACO grading
+system does not support more. If you have, for example, a separate
+dictionary, it should be merged into the single input file.</p>
+
+<p>Reactive or online tasks (in which the contestants' programs
+communicate with an opponent or grader) have their own pitfalls.
+Assuming the grader runs in a separate process (which is good
+practice), every time control passes from one to the other, there is a
+flush and a process context switch. Some of this time will be charged
+to the contestant's program, and it can quickly dominate the overall
+running time. It is also necessary to make the reactive grader
+extremely robust to weird input from the contestant's program.</p>
+
+<hr />
+
+<div>
+<a href="testdata.html">[Prev]</a>
+
+<a href="../index.html">[Up]</a>
+</div>
+<hr />
+<p>
+Last updated Mon Jun 19 19:06:24.0000000000 2006.
+Copyright Bruce Merry (bmerry '@' gmail dot. com).
+</p>
+</body>
+</html>

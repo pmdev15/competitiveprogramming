@@ -1,0 +1,197 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+ <title>Graphs</title>
+ <link rel="stylesheet" href="../styles.css" />
+ <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+
+<body>
+<h1>2.6. Graphs</h1>
+
+<p>
+In this context, the word "graph" does not refer to a plot of one variable
+against another, but a more abstract concept: A set of nodes, some of which
+are joined together by edges. An examples is a set of cities (the nodes)
+connected by various flights (the edges). There are many problems that can
+be translated into graphs. These often involve a journey between the nodes
+using the edges.
+</p>
+
+<hr />
+<h2><a id="terminology">Terminology</a></h2>
+
+
+<ul>
+<li>The things that are connected are called <em>vertices</em> or <em>nodes</em>.
+Mathematicians call them vertices but computer scientists sometimes call them nodes
+because they can model nodes in a network.</li>
+<li>The things connecting them are called <em>edges</em>.</li>
+<li>A <em>path</em> is a list of edges, with each adjacent pair sharing a vertex.</li>
+<li>A <em>cycle</em> is similar to a path, but the first and last edges also share a vertex.</li>
+<li>A graph is <em>connected</em> if there exists a path between any two points.</li>
+<li>A <em>subgraph</em> is a subset of the vertices of the graph and all the
+edges between any two of them.</li>
+<li>A subgraph is considered to be a <em>component</em> of the original graph
+if it is connected and there are no edges between a vertex in the subgraph
+and a vertex not in the subgraph.</li>
+<li>A <em>tree</em> is a connected graph with no cycles.</li>
+<li>A <em>forest</em> is any graph with no cycles.</li>
+<li>An <em>Eulerian path</em> is a path that uses every edge exactly once.</li>
+<li>A <em>Hamiltonian path</em> is a path that uses every vertex exactly once.</li>
+<li>Eulerian and Hamiltonian cycles are defined similarly.</li>
+<li>A <em>complete</em>graph is one in which every vertex is connected to
+every other vertex once.</li>
+<li>A vertex is a <em>neighbour</em> of another if there is an edge between
+them.</li>
+<li>A <em>dense</em> graph is one where most of the potential edges are
+actual edges. The opposite of a dense graph is a <em>sparse</em> graph. These
+are relative terms, like "big" and "small".</li>
+</ul>
+
+<hr />
+<h2><a id="variations">Variations</a></h2>
+
+
+<p>
+There are numerous oddities that can occur in graphs that can occur in some
+problems but not in others, and it is worth remembering these when designing
+an algorithm.
+</p>
+
+<ul>
+<li>A point might be connected to itself.</li>
+<li>Two points might be have more than one edge between them.</li>
+<li>Edges are sometimes <em>directed</em>. This means that you can only travel
+along the edge in one direction.</li>
+<li>Edges are sometimes <em>weighted</em>. Each edge has a certain real
+number associated with it, and the weight of a path is the sum of the
+weights on the edges. The weight is also called the length or cost.</li>
+</ul>
+
+<hr />
+<h2><a id="representation">Representation</a></h2>
+
+
+<p>
+There are a number of ways to represent graphs in memory. You can have a
+matrix where you store a boolean value for every pair of vertices specifying
+whether an edge exists between those two points. You can store a list of
+neighbours for every vertex; or you can just store a list of edges (there
+are probably be other ways, but I can't think of any really useful ones
+offhand).
+</p>
+
+<p>
+Graphs are a good example of places where redundant data structures can save
+time. For example, if you want to execute an operation for every edge then a
+list of edges will be useful. If you want to construct paths then a list of
+neighbours for every point will be useful, because you know which points you
+can go to next. For determining whether there is an edge between two points,
+the matrix representation would be the most useful.
+</p>
+
+<hr />
+<h2><a id="spanning">Minimum spanning tree</a></h2>
+
+
+<p>
+A spanning tree of a graph is a subgraph that is a tree and which has
+edges to every vertex (so no vertices are "isolated"). The minimum spanning
+tree of a weighted graph is the spanning tree for which the sum of the
+weights of the edges in the tree is the minimum (this isn't necessarily
+unique). There are three standard algorithms for finding the MST:
+</p>
+
+<ol>
+<li>Start with a subgraph with no edges. Repeatedly add the shortest edge
+that doesn't create a cycle, until the graph is a spanning tree.</li>
+<li>Start with a subgraph that is the same as the original graph. Delete the
+longest edge that will still keep the subgraph connected. Repeat until the
+graph is a spanning tree.</li>
+<li>Start by making the tree consist only of one of the vertices (an arbitrary
+one). Repeatedly add the shortest edge between a vertex in the tree
+and a vertex not in the tree, to the tree.</li>
+</ol>
+
+<p>
+The graph will be a spanning tree when the number of edges is one less that
+the number of vertices.
+</p>
+
+<p>The last method can be implemented as a slight variation on
+<a href="#shortest">Dijkstra's algorithm</a>: use VW in place
+of P(V)+VW in the description above, and the MST will be the set of pointers.
+</p>
+
+<hr />
+<h2><a id="travelling">The travelling salesman</a></h2>
+
+
+<p>
+"The travelling salesman" is an old problem about the following hypothetical
+situation: A travelling salesman wants to visit a number of cities. There
+are flights between every pair of cities, but they have different costs. He
+wants to visit all the cities exactly once and finish where he started, with
+the minimum cost. This could be paraphrased in graph theory terms as
+follows: Find the minimum Hamiltonian cycle of a complete graph.
+</p>
+
+<p>
+This problem is one of a large class of problems that have frustrated
+computer scientists for many years, known as the NP Complete problems.
+There might be a way to solve any NP Complete problem in polynomial
+time, but nobody has been able to find one. On the other hand, it might
+be theoretically impossible to find an algorithm that runs in
+polynomial time, but nobody has been able to prove it. I'm going to
+outline a few techniques for getting good approximations for this type
+of problem (technically NP Complete problems are actually Yes/No
+problems; the optimisation variants are known as NP Hard).
+</p>
+
+<p>
+In an olympiad, you shouldn't be satisfied with any approximation you get,
+unless you know it is optimal. You should try to use all the time your
+program is allowed to find a better answer. You can just start with an
+exhaustive search that you run for as long as possible and then give your
+best result yet. However, it is usually possible to structure your program
+to avoid checking many options that you know are going to be worse than the
+best solution you already have. For example, in the travelling salesman
+problem, if the distance you have travelled so far plus the distance to go
+directly to the finish is greater than the best result you have so far,
+there is no point in continuing. To get the most out of this, you should try
+to get a reasonably good estimate before starting the exhausting search. You
+can do this is several ways:
+</p>
+
+<ul>
+<li>Use a "smart" algorithm that makes invalid but reasonably accurate
+assumptions about the solutions. For example, in the travelling salesman you
+could make the salesman always choose the cheapest flight at each step.</li>
+<li>Make a few (say 1000) guesses using random numbers.</li>
+<li>Any other way that you can think of.</li>
+</ul>
+
+<p>
+If you have a travelling salesman problem with the added information that it
+is always cheaper to fly direct than going via another city, then there is a
+smart algorithm that will always give you at most double the optimal cost:
+Do a <a href="../structures/tree.html#walk">pre-ordered</a> walk of the 
+<a href="#spanning">minimum spanning tree</a>.
+</p>
+
+<hr />
+
+<div>
+<a href="searching.html">[Prev]</a>
+<a href="shortest.html">[Next]</a>
+<a href="../index.html">[Up]</a>
+</div>
+<hr />
+<p>
+Last updated Sun Nov 28 22:04:38.0000000000 2004.
+Copyright Bruce Merry (bmerry '@' gmail dot. com).
+</p>
+</body>
+</html>

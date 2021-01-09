@@ -1,0 +1,89 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+ <title>Hash tables</title>
+ <link rel="stylesheet" href="../styles.css" />
+ <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+
+<body>
+<h1>1.3. Hash tables</h1>
+
+<p>
+A hash table is a data structure useful for storing a set of items in which
+the order is not important. It is useful if you want to be able to build a
+set up an element at a time, and at every stage being able to know whether a
+particular element is in the table (e.g. for avoiding duplicates).
+</p>
+
+<hr />
+<h2><a id="implementation">How does it work?</a></h2>
+
+
+<p>
+The basis of a hash table is a <em>hash function</em>. A hash function is a
+function that takes an element of whatever data type you are storing
+(integer, string, etc) and outputs an integer in a certain range.
+</p>
+
+<p>A good
+hash function is one that gets a fairly even distribution of the numbers in
+the output range, even if the input values are very poorly distributed (for
+example, English words are poorly distributed since they only use 26 different
+letters and some letters and some combinations of letter occur far more
+frequently than others.
+</p>
+
+<p>
+Many hash functions work by computing a large value modulo the table
+size. In this case it is generally a good idea to make the table size a
+prime number.
+</p>
+
+<p>
+The hash table itself consists of an array whose indexes are the range of
+the hash function. You should always try to make the table at least 50%
+bigger than the actual number of items that will ever need to be stored in
+it, and the larger the better. The elements of the array are just elements
+of the set you are using (you can also store associated values with each
+key). You also need a way to specify whether any given
+array entry is "in use" or not. Elements can occur anywhere in the hash
+table, with the condition that there must be no unused entries between an
+element's hash value and the element's address.
+</p>
+
+<hr />
+<h2><a id="insertion">Insertion</a></h2>
+
+<p>
+To add an element to the hash table, first apply the hash function to it to
+get a <em>hash value</em>. Then go to that element in the array, and search
+from there until you find a table entry that isn't occupied (possibly
+wrapping at the end of the array). Then place the element in the empty table
+entry.
+</p>
+
+<hr />
+<h2><a id="searching">Searching</a></h2>
+
+
+<p>
+Searching for an element is described on the <a
+href="../algorithms/searching.html#hash">searching</a> page.
+</p>
+
+<hr />
+
+<div>
+<a href="tree.html">[Prev]</a>
+<a href="circular.html">[Next]</a>
+<a href="../index.html">[Up]</a>
+</div>
+<hr />
+<p>
+Last updated Sun Nov 28 22:04:38.0000000000 2004.
+Copyright Bruce Merry (bmerry '@' gmail dot. com).
+</p>
+</body>
+</html>

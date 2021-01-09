@@ -1,0 +1,497 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+ <title>Sorting</title>
+ <link rel="stylesheet" href="../styles.css" />
+ <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+
+<body>
+<h1>2.4. Sorting</h1>
+
+<p>
+Sorting a list of items is a major topic that I can't even begin to deal
+with here (thick books have been written on the subject). I'm just going to
+mention a few sorting algorithms and their characteristics.
+</p>
+
+<p>
+In terms of performance, sorts mostly come in three flavours:
+</p>
+
+<ol>
+<li><tt>O(n<sup>2</sup>)</tt></li>
+<li><tt>O(n.log n)</tt> on average, but <tt>O(n<sup>2</sup>)</tt> at worst</li>
+<li><tt>O(n.log n)</tt></li>
+</ol>
+
+<p>
+The first class shouldn't be used for sorting really big arrays, say bigger
+than 2000 (there is no real limit; it depends on your time constraints).
+However they are usually very quick to code and debug, so always consider
+using them unless you are sure that they won't cut it. The algorithms
+in the second class are very seldom <tt>O(n<sup>2</sup>)</tt>, so it is
+fine to use them in most applications, particularly in computer
+olympiads where you only have 5 or 10 test cases and are highly
+unlikely to get a really slow case, and even if you do you only lose
+some of your points. These algorithms can actually be faster than those
+in the third class because they are simpler.
+</p>
+
+<p>
+Each of the sorts below has a description of the algorithm, the efficiency,
+pros and cons and other notes. 
+</p>
+
+<hr />
+<h2><a id="bubble">Bubble sort</a></h2>
+
+
+<dl>
+
+<dt>Algorithm</dt>
+<dd>
+Scan through the array from left to right, comparing adjacent elements.
+Whenever two adjacent elements are out of order, swap them. Repeat this
+until the array is sorted.
+</dd>
+
+<dt>Efficiency</dt>
+<dd>
+<tt>O(n<sup>2</sup>)</tt>
+</dd>
+
+<dt>Pros</dt>
+<dd>
+<ul>
+<li>Simple to implement and understand, but not much more so than several
+more efficient sorts</li>
+<li>Will be very quick on an already sorted list</li>
+</ul>
+</dd>
+
+<dt>Cons</dt>
+<dd>
+<ul>
+<li>Probably the slowest sort ever invented</li>
+</ul>
+</dd>
+
+<dt>Notes</dt>
+<dd>
+Don't bother learning this sort. There are other sorts which are just as
+easy to implement and much faster. Although there are some time saving
+modifications that can be made (e.g. keeping track of the last swap in the
+previous pass, and only going up to there in the current pass), they aren't
+worth it.
+</dd>
+</dl>
+
+<hr />
+<h2><a id="selection">Selection sort</a></h2>
+
+
+<dl>
+
+<dt>Algorithm</dt>
+<dd>
+Search the array for the largest element, and swap it with the element at
+the end. Then repeat for just the first <tt>n - 1</tt> elements, then for
+the first <tt>n - 2</tt> etc. This extracts the elements individually in
+reverse order.
+</dd>
+
+<dt>Efficiency</dt>
+<dd>
+<tt>O(n<sup>2</sup>)</tt>
+</dd>
+
+<dt>Pros</dt>
+<dd>
+<ul>
+<li>Easy to implement</li>
+</ul>
+</dd>
+
+<dt>Cons</dt>
+<dd>
+<ul>
+<li>Is no faster on a partially sorted array</li>
+</ul>
+</dd>
+
+<dt>Notes</dt>
+<dd>
+This is a reasonable sort to use for sorting a fairly small number of
+items, and my personal favourite of the O(n<sup>2</sup>) sorts.
+</dd>
+</dl>
+
+<hr />
+<h2><a id="insertion">Insertion sort</a></h2>
+
+
+<dl>
+
+<dt>Algorithm</dt>
+<dd>
+The first part of the list is sorted and the remainder is unsorted. To begin
+with, all elements are in the unsorted part. Go through the elements in the
+unsorted part sequencially and insert each into the sorted part by searching
+for it's correct position with a <a href="searching.html#linear">linear
+search</a> or a <a href="searching.html#binary">binary search</a>.
+</dd>
+
+<dt>Efficiency</dt>
+<dd>
+<tt>O(n<sup>2</sup>)</tt>
+</dd>
+
+<dt>Pros</dt>
+<dd>
+<ul>
+<li>Fairly easy to implement with a linear search</li>
+<li>If a backwards linear search is used, it is much faster on an partially
+sorted array</li>
+</ul>
+</dd>
+
+<dt>Cons</dt>
+<dd>
+<ul>
+<li>On an array, insertion is slow because all the elements after it have to
+be moved up.</li>
+</ul>
+</dd>
+
+<dt>Notes</dt>
+<dd>
+This sort isn't especially useful by itself (although it is a
+respectable O(n<sup>2</sup>) sort), but forms the basis of
+<a href="#shell">Shell sort</a>.
+</dd>
+</dl>
+
+<hr />
+<h2><a id="shell">Shell sort</a></h2>
+
+
+<dl>
+
+<dt>Algorithm</dt>
+<dd>
+Consider the sequence 1, 4, 13, 40, 121 etc, where each term is triple
+the previous one plus one. Go through the sequence backwards, starting
+with the largest term less than the number of items being sorted. For
+each member of the sequence <tt>g</tt>, do the following
+
+<ul>
+<li>Sort the elements with indices <tt>1, 1 + g, 1 + 2g, 1 + 3g ...</tt></li>
+<li>Sort the elements with indices <tt>2, 2 + g, 2 + 2g, 2 + 3g ...</tt></li>
+<li>Sort the elements with indices <tt>3, 3 + g, 3 + 2g, 3 + 3g ...</tt></li>
+<li>And so on, up to <tt>g, 2g, 3g, 4g, ...</tt></li>
+</ul>
+
+Each of these sorts should be done with a sort that works quickly on a
+partially sorted list; a good choice is <a href="#insertion">Insertion
+sort</a>.
+</dd>
+
+<dt>Efficiency</dt>
+<dd>
+At worst O(n<sup>3/2</sup>). It's also possible to use sequences other
+than 1, 4, 13, ... but they do not necessarily give the same
+efficiency.
+</dd>
+
+<dt>Pros</dt>
+<dd>
+<ul>
+<li>Usually much faster than regular insertion sort for very little extra work</li>
+<li>The fastest of the non-recursive sorts shown here</li>
+<li>Easy to get working</li>
+</ul>
+</dd>
+
+<dt>Cons</dt>
+<dd>
+<ul>
+<li>Running time is slighly sensitive to the data (but far less so than
+binary tree sort or Quicksort)</li>
+<li>Not quite as fast as ultra-fast sorts like Quicksort</li>
+<li>If you mess up the sequence, you get a sort that will still work
+but is slow.</li>
+</ul>
+</dd>
+
+<dt>Notes</dt>
+<dd>
+This is an excellent medium/heavy sort, and after trying this out I decided
+to use this whenever I need a large number of items sorted in a hurry and I
+don't mind it being a couple of times slower than a heavy duty sort.
+</dd>
+</dl>
+
+<hr />
+<h2><a id="quick">Quicksort</a></h2>
+
+
+<dl>
+
+<dt>Algorithm</dt>
+<dd>
+Save the value of the middle element of the array. Have a "left" pointer
+that starts at the first element and moves right and a "right" pointer that
+starts at the last element and moves left. Repeat the following operation
+until the pointers cross:
+
+<ul>
+<li>Scan with the left pointer until an element larger or equal to the saved 
+value is found.</li>
+<li>Scan with the right pointer until an element smaller or equal to the
+saved value is found.</li>
+<li>If the pointers haven't crossed yet, swap the values they point to and
+manually advance both pointers one position.</li>
+</ul>
+
+Then recursively sort the elements in the ranges [start, right] and [left,
+end].
+</dd>
+
+<dt>Efficiency</dt>
+<dd>
+<tt>O(n.log n)</tt> on average
+</dd>
+
+<dt>Pros</dt>
+<dd>
+<ul>
+<li>Extremely fast on average</li>
+</ul>
+</dd>
+
+<dt>Cons</dt>
+<dd>
+<ul>
+<li>Fairly tricky to implement and debug</li>
+<li>Very slow in the worst case (but see notes)</li>
+<li>In the worst case, could cause a stack overflow</li>
+</ul>
+</dd>
+
+<dt>Notes</dt>
+<dd>
+<p>
+If the middle element in the array is very large or very small, the sort
+becomes slower. To reduce the chances of this, you can take median of the
+first, middle and last elements and put it in the middle.
+</p>
+
+<p>
+In a degenerate case, Quick sort could also recurse to a very deep level and
+cause a stack overflow. One way to avoid this is to keep track of the level
+of recursion (e.g. by passing it as a parameter) and switch to a simpler
+sort (like selection sort) if the recursion is too deep.
+</p>
+</dd>
+
+</dl>
+
+<hr />
+<h2><a id="heap">Heap sort</a></h2>
+
+
+<dl>
+
+<dt>Algorithm</dt>
+<dd>
+Add the elements to a <a href="../structures/heap.html">heap</a> one at a
+time. Then remove the elements from the top of the heap one at a time, and
+they will be in order. If the heap is done upside down (i.e. largest element
+at the root) then the incomplete sorted list and the heap can share the same
+array without requiring extra memory.
+</dd>
+
+<dt>Efficiency</dt>
+<dd>
+<tt>O(n.log n)</tt>
+</dd>
+
+<dt>Pros</dt>
+<dd>
+<ul>
+<li>Guaranteed to be <tt>O(n.log n)</tt></li>
+<li>One of the few non-recursive <tt>O(n.log n) sorts</tt></li>
+<li>Fairly easy to debug, because it is non-recursive and because it
+consists of two smaller and unrelated parts</li>
+</ul>
+</dd>
+
+<dt>Cons</dt>
+<dd>
+<ul>
+<li>Not as fast on average as <a href="#quick">Quick sort</a></li>
+<li>Quite a lot of code to implement the heap operations</li>
+</ul>
+</dd>
+
+<dt>Notes</dt>
+<dd>
+<p>
+This isn't an especially useful sort, but the running time is guaranteed
+O(n.log n) and it is very light on memory consumption. Also, if you have
+already implemented a <a href="../structures/heap.html">heap</a> for
+some other reason, then this sort comes almost for free.
+</p>
+
+<p>
+It is possible to get some extra speed by constructing the heap in one
+pass: put everything into the heap ignoring the heap condition, then
+work through the heap from bottom to top, bubbling elements down the
+heap where necessary. This makes the heap creation take linear time.
+</p>
+</dd>
+
+</dl>
+
+<hr />
+<h2><a id="merge">Merge sort</a></h2>
+
+
+<dl>
+
+<dt>Algorithm</dt>
+<dd>
+Split the array in half and recursively sort each half. Then merge the two
+halves by keeping a pointer to the front of each list and continuously
+taking the smaller of the two elements.
+</dd>
+
+<dt>Efficiency</dt>
+<dd>
+<tt>O(n.log n)</tt>
+</dd>
+
+<dt>Pros</dt>
+<dd>
+<ul>
+<li>Guaranteed to be <tt>O(n.log n)</tt></li>
+<li>Simple to understand</li>
+</ul>
+</dd>
+
+<dt>Cons</dt>
+<dd>
+<ul>
+<li>Not as fast as <a href="#quick">Quick sort</a> on average</li>
+<li>Requires as much memory as the original array</li>
+</ul>
+</dd>
+
+<dt>Notes</dt>
+<dd>
+<p>
+It is convenient to sort the right half backwards, and have the pointer to
+the second half move backwards. Then you never have to check whether either
+list is empty; the pointer simply moves to the biggest element in the other
+and is never used again.
+</p>
+
+<p>
+I used to like this sort because it is guaranteed <tt>O(n.log n)</tt>, but
+it is a memory hog and not as fast as Quicksort in practice.
+</p>
+</dd>
+
+</dl>
+
+<hr />
+<h2><a id="tree">Binary tree sort</a></h2>
+
+
+<dl>
+
+<dt>Algorithm</dt>
+<dd>
+Insert each element sequencially into a <a
+href="../structures/tree.html#search">binary search tree</a>. The do an
+in-order walk of the tree (if you don't know what this is, read the
+information on binary search trees).
+</dd>
+
+<dt>Efficiency</dt>
+<dd>
+<tt>O(n.log n)</tt> on average
+</dd>
+
+<dt>Pros</dt>
+<dd>
+<ul>
+<li>If you've already implemented binary search trees, then this sort is
+quite easy.</li>
+</ul>
+</dd>
+
+<dt>Cons</dt>
+<dd>
+<ul>
+<li>Hogs memory for the pointers</li>
+<li>Not very pleasant to implement or debug</li>
+<li>Not very fast</li>
+<li>Is <tt>O(n<sup>2</sup>)</tt> on a sorted list</li>
+</ul>
+</dd>
+
+<dt>Notes</dt>
+<dd>
+Think of this as the bubble sort of the medium speed sorts: slow and not
+very useful. Binary search trees are more useful if you are mixing
+things like insertions, searches, and extraction of sorted data.
+</dd>
+
+</dl>
+
+<!--
+mansection(,)
+
+<dl>
+
+<dt>Algorithm<dd>
+<p>
+</p>
+
+<dt>Efficiency<dd>
+<p>
+<tt></tt>
+</p>
+
+<dt>Pros<dd>
+<ul>
+</ul>
+
+<dt>Cons<dd>
+<ul>
+</ul>
+
+<dt>Notes<dd>
+<p>
+</p>
+
+</dl>
+-->
+
+<hr />
+
+<div>
+<a href="dp.html">[Prev]</a>
+<a href="searching.html">[Next]</a>
+<a href="../index.html">[Up]</a>
+</div>
+<hr />
+<p>
+Last updated Sun Nov 28 22:04:38.0000000000 2004.
+Copyright Bruce Merry (bmerry '@' gmail dot. com).
+</p>
+</body>
+</html>
