@@ -93,13 +93,13 @@ void compute()
         swap(arra[j], arrb[k]);
         j++;
         k--;
-        count++;
         if (j > m || k < 0)
         {
-            flag=true;
+            flag = true;
             cout << -1 << endl;
             break;
         }
+        count++;
     }
     if (!flag)
     {

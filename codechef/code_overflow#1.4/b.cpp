@@ -5,12 +5,21 @@ using namespace std;
 
 void solve()
 {
+    int n;
+    cin >> n;
+    int arr[n];
+    for (int i = 0; i < n; i++)
+    {
+        int a;
+        cin >> a;
+        for
+    }
 }
 int main()
 {
-    int t=1;
+    int t = 1;
     cin >> t;
-    while(t--)
+    while (t--)
     {
         solve();
     }
